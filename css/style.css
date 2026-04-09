@@ -269,17 +269,22 @@ h1,h2,h3,h4 { font-family:var(--f-head); line-height:1.2; color:var(--c-900); }
 .has-dropdown:hover > .nav-link i { transform:rotate(180deg); }
 
 .nav-dropdown {
-  position:absolute; top:calc(100% + 10px); left:50%;
+  position:absolute; top:100%; left:50%;
   transform:translateX(-50%) translateY(8px);
   background:var(--c-white);
   border:1px solid var(--c-200);
   border-radius:var(--r-lg);
   box-shadow:0 20px 40px rgba(0,0,0,.14);
-  padding:10px;
+  padding:18px 10px 10px;
   min-width:230px;
   opacity:0; pointer-events:none;
   transition:opacity .25s ease, transform .25s ease;
   z-index:500;
+}
+/* invisible bridge so mouse travels from link to dropdown without losing hover */
+.nav-dropdown::before {
+  content:''; position:absolute;
+  top:-14px; left:0; right:0; height:14px;
 }
 .has-dropdown:hover .nav-dropdown {
   opacity:1; pointer-events:all;
