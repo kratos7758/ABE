@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Service d'audit et contrôle – ABE Consulting SARL. Audit légal, contractuel, contrôle interne à Douala, Cameroun." />
+  <title>Audit & Contrôle – ABE Consulting SARL | Douala, Cameroun</title>
+  <link rel="icon" type="image/png" href="../images/logoABE.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/service.css" />
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<header id="header" class="scrolled">
+  <div class="container header-inner">
+    <a href="../index.html" class="logo-wrap"><img src="../images/logoABE.png" alt="ABE Consulting SARL" class="logo" /></a>
+    <nav><ul class="nav-links">
+      <li class="has-dropdown">
+        <a href="../index.html#services" class="nav-link active-link">Services <i class="fas fa-chevron-down" style="font-size:.65rem;margin-left:3px"></i></a>
+        <div class="nav-dropdown">
+          <a href="comptabilite.html" class="nd-item"><i class="fas fa-calculator nd-icon"></i><span>Comptabilité</span></a>
+          <a href="audit.html"        class="nd-item active"><i class="fas fa-search-dollar nd-icon"></i><span>Audit & Contrôle</span></a>
+          <a href="fiscalite.html"    class="nd-item"><i class="fas fa-file-invoice-dollar nd-icon"></i><span>Fiscalité</span></a>
+          <a href="formation.html"    class="nd-item"><i class="fas fa-graduation-cap nd-icon"></i><span>Formation</span></a>
+          <a href="conseil.html"      class="nd-item"><i class="fas fa-chart-line nd-icon"></i><span>Conseil en Gestion</span></a>
+          <a href="commerce.html"     class="nd-item"><i class="fas fa-globe nd-icon"></i><span>Commerce & Import-Export</span></a>
+        </div>
+      </li>
+      <li><a href="../index.html#about"        class="nav-link">À propos</a></li>
+      <li><a href="../index.html#process"      class="nav-link">Approche</a></li>
+      <li><a href="../index.html#testimonials" class="nav-link">Témoignages</a></li>
+      <li><a href="../index.html#contact"      class="nav-link">Contact</a></li>
+    </ul></nav>
+    <div class="header-actions">
+      <a href="../login.html" class="btn-login"><i class="fas fa-user-circle"></i> <span data-i18n="nav_client_space">Espace client</span></a>
+      <a href="../index.html#contact" class="btn btn-primary" data-i18n="nav_book">Prendre RDV</a>
+      <button class="lang-toggle" onclick="toggleLang()" aria-label="Changer de langue / Switch language">
+        <span class="lang-fr active">FR</span>
+        <span class="lang-sep">|</span>
+        <span class="lang-en">EN</span>
+      </button>
+    </div>
+    <button class="hamburger" onclick="this.classList.toggle('open');document.getElementById('mobileMenu').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-drawer" id="mobileMenu">
+    <nav class="drawer-nav">
+      <a href="comptabilite.html" class="drawer-link">Comptabilité</a><a href="audit.html" class="drawer-link">Audit & Contrôle</a>
+      <a href="fiscalite.html" class="drawer-link">Fiscalité</a><a href="formation.html" class="drawer-link">Formation</a>
+      <a href="conseil.html" class="drawer-link">Conseil en Gestion</a><a href="commerce.html" class="drawer-link">Commerce & Import-Export</a>
+    </nav>
+    <div class="drawer-actions">
+      <a href="../login.html" class="btn btn-outline-dark">Espace client</a>
+      <a href="../index.html#contact" class="btn btn-primary">Prendre RDV</a>
+    </div>
+  </div>
+</header>
+
+<!-- ══ HERO ══ -->
+<section class="svc-hero">
+  <div class="svc-hero-bg" style="background:linear-gradient(135deg,#0d0a15 0%,#150a20 60%,#1a0d04 100%)"></div>
+  <div class="svc-hero-gradient" style="--hero-color1:rgba(232,90,26,.25);--hero-color2:rgba(109,197,52,.15)"></div>
+  <div class="svc-hero-grid"></div>
+  <div class="container svc-hero-inner">
+    <div class="breadcrumb">
+      <a href="../index.html">Accueil</a><span class="sep"><i class="fas fa-chevron-right" style="font-size:.6rem"></i></span>
+      <a href="../index.html#services">Services</a><span class="sep"><i class="fas fa-chevron-right" style="font-size:.6rem"></i></span>
+      <span class="current">Audit & Contrôle</span>
+    </div>
+    <div class="svc-hero-tag orange"><i class="fas fa-search-dollar"></i> Service Audit</div>
+    <div class="svc-hero-icon shi-orange"><i class="fas fa-search-dollar"></i></div>
+    <h1 class="svc-hero-title">Audit & Contrôle<br /><span class="grad">une vision juste de la réalité</span></h1>
+    <p class="svc-hero-sub">Missions d'audit légal ou contractuel, évaluation du contrôle interne et analyse des risques — pour donner à vos partenaires et investisseurs des garanties solides sur la fiabilité de vos comptes.</p>
+    <div class="svc-hero-ctas">
+      <a href="../index.html#contact" class="btn btn-primary btn-lg"><i class="fas fa-paper-plane"></i> Demander un devis</a>
+      <a href="tel:+237670365978"     class="btn btn-ghost btn-lg"><i class="fas fa-phone"></i> Nous appeler</a>
+    </div>
+    <div class="svc-hero-stats">
+      <div class="svc-stat"><strong>Légal</strong><span>& contractuel</span></div>
+      <div class="svc-stat-sep"></div>
+      <div class="svc-stat"><strong>ISA</strong><span>Normes internationales</span></div>
+      <div class="svc-stat-sep"></div>
+      <div class="svc-stat"><strong>100%</strong><span>Indépendance garantie</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ INTRO ══ -->
+<section class="section">
+  <div class="container svc-intro">
+    <div class="intro-visual reveal-l">
+      <div class="intro-img-card">
+        <div class="intro-img-inner">
+          <div class="intro-big-icon ibi-o"><i class="fas fa-search-dollar"></i></div>
+          <p style="font-family:'Poppins',sans-serif;font-weight:700;color:var(--c-900);font-size:1.1rem">L'audit au service<br/>de votre crédibilité</p>
+          <div style="height:1px;width:100%;background:linear-gradient(90deg,transparent,var(--c-orange),transparent)"></div>
+          <p style="font-size:.82rem;color:var(--c-500);text-align:center">Normes ISA — OHADA<br/>Indépendance & objectivité</p>
+        </div>
+      </div>
+    </div>
+    <div class="intro-text reveal-r">
+      <div class="tag orange"><i class="fas fa-info-circle"></i> Notre prestation</div>
+      <h2>L'audit, pilier de la confiance des parties prenantes</h2>
+      <p>L'audit constitue un outil essentiel de transparence financière et de gouvernance d'entreprise. Nos auditeurs, formés aux normes ISA et à l'environnement OHADA, réalisent des missions <strong>indépendantes, rigoureuses et constructives</strong> pour attester la sincérité de vos comptes ou identifier les axes d'amélioration de votre organisation.</p>
+      <p>Nos rapports d'audit sont reconnus par les administrations fiscales, les banques, les bailleurs de fonds et les investisseurs actifs au Cameroun et dans la zone CEMAC.</p>
+      <div class="intro-checklist">
+        <div class="ic-item">Audit légal des comptes annuels (commissariat aux comptes)</div>
+        <div class="ic-item">Audit contractuel à la demande (due diligence, acquisition)</div>
+        <div class="ic-item">Évaluation et renforcement du contrôle interne</div>
+        <div class="ic-item">Audit opérationnel et performance</div>
+        <div class="ic-item">Rapport d'audit certifié remis dans les délais convenus</div>
+      </div>
+      <a href="../index.html#contact" class="btn btn-primary">Démarrer la mission <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PRESTATIONS ══ -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="sh reveal">
+      <div class="tag orange"><i class="fas fa-list-check"></i> Détail de la mission</div>
+      <h2 class="h-lg">Nos missions d'audit</h2>
+      <p class="lead">Un panel complet de missions pour tous vos besoins d'assurance et de contrôle.</p>
+    </div>
+    <div class="included-grid">
+      <div class="inc-card reveal" style="transition-delay:.05s">
+        <div class="inc-icon ii-o"><i class="fas fa-balance-scale"></i></div>
+        <h3>Audit légal (CAC)</h3>
+        <p>Certification des comptes annuels par un commissaire aux comptes, conformément au droit OHADA.</p>
+        <ul class="inc-list">
+          <li><i class="fas fa-check"></i> Certification sans réserve / avec réserve</li>
+          <li><i class="fas fa-check"></i> Rapport général d'audit</li>
+          <li><i class="fas fa-check"></i> Rapport spécial (conventions)</li>
+          <li><i class="fas fa-check"></i> Assistance AG annuelle</li>
+        </ul>
+      </div>
+      <div class="inc-card reveal" style="transition-delay:.1s">
+        <div class="inc-icon ii-g"><i class="fas fa-handshake"></i></div>
+        <h3>Audit contractuel</h3>
+        <p>Missions ponctuelles à la demande d'un commanditaire pour sécuriser une décision stratégique.</p>
+        <ul class="inc-list">
+          <li><i class="fas fa-check"></i> Due diligence acquisition</li>
+          <li><i class="fas fa-check"></i> Audit d'entrée en relation</li>
+          <li><i class="fas fa-check"></i> Audit de fin de contrat</li>
+          <li><i class="fas fa-check"></i> Audit de projet / subvention</li>
+        </ul>
+      </div>
+      <div class="inc-card reveal" style="transition-delay:.15s">
+        <div class="inc-icon ii-b"><i class="fas fa-shield-alt"></i></div>
+        <h3>Contrôle interne</h3>
+        <p>Évaluation du dispositif de contrôle interne et recommandations pour renforcer la maîtrise des risques.</p>
+        <ul class="inc-list">
+          <li><i class="fas fa-check"></i> Cartographie des risques</li>
+          <li><i class="fas fa-check"></i> Évaluation des procédures</li>
+          <li><i class="fas fa-check"></i> Tests de contrôle</li>
+          <li><i class="fas fa-check"></i> Plan d'amélioration</li>
+        </ul>
+      </div>
+      <div class="inc-card reveal" style="transition-delay:.2s">
+        <div class="inc-icon ii-p"><i class="fas fa-chart-bar"></i></div>
+        <h3>Audit opérationnel</h3>
+        <p>Analyse de l'efficience et de la performance de vos processus clés pour identifier les leviers d'optimisation.</p>
+        <ul class="inc-list">
+          <li><i class="fas fa-check"></i> Audit des achats</li>
+          <li><i class="fas fa-check"></i> Audit de la chaîne RH</li>
+          <li><i class="fas fa-check"></i> Audit de trésorerie</li>
+          <li><i class="fas fa-check"></i> Tableau de bord performance</li>
+        </ul>
+      </div>
+      <div class="inc-card reveal" style="transition-delay:.25s">
+        <div class="inc-icon ii-y"><i class="fas fa-search"></i></div>
+        <h3>Audit de conformité</h3>
+        <p>Vérification du respect des réglementations (fiscale, sociale, environnementale) et des normes sectorielles.</p>
+        <ul class="inc-list">
+          <li><i class="fas fa-check"></i> Conformité fiscale & sociale</li>
+          <li><i class="fas fa-check"></i> Conformité réglementaire</li>
+          <li><i class="fas fa-check"></i> Normes COBAC (si banque)</li>
+          <li><i class="fas fa-check"></i> Rapport de conformité</li>
+        </ul>
+      </div>
+      <div class="inc-card reveal" style="transition-delay:.3s">
+        <div class="inc-icon ii-o"><i class="fas fa-exchange-alt"></i></div>
+        <h3>Audit de fusion / acquisition</h3>
+        <p>Accompagnement complet lors des opérations de restructuration, fusion ou cession d'entreprise.</p>
+        <ul class="inc-list">
+          <li><i class="fas fa-check"></i> Valorisation d'entreprise</li>
+          <li><i class="fas fa-check"></i> Revue des actifs / passifs</li>
+          <li><i class="fas fa-check"></i> Identification des risques cachés</li>
+          <li><i class="fas fa-check"></i> Rapport de due diligence</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ AVANTAGES ══ -->
+<section class="section">
+  <div class="container">
+    <div class="sh reveal"><div class="tag orange"><i class="fas fa-star"></i> Notre valeur ajoutée</div><h2 class="h-lg">Pourquoi choisir ABE Consulting pour votre audit ?</h2></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start">
+      <div class="benefits-list reveal-l">
+        <div class="benefit-row"><div class="benefit-icon bi-o"><i class="fas fa-user-tie"></i></div><div class="benefit-text"><h4>Indépendance totale</h4><p>Nos auditeurs maintiennent une indépendance absolue vis-à-vis de vos dirigeants et actionnaires, garantissant l'objectivité de nos conclusions.</p></div></div>
+        <div class="benefit-row"><div class="benefit-icon bi-g"><i class="fas fa-book-open"></i></div><div class="benefit-text"><h4>Maîtrise des normes ISA & OHADA</h4><p>Application des Normes Internationales d'Audit (ISA) adaptées au contexte OHADA et à la réglementation camerounaise.</p></div></div>
+        <div class="benefit-row"><div class="benefit-icon bi-o"><i class="fas fa-comments"></i></div><div class="benefit-text"><h4>Approche constructive</h4><p>Au-delà du constat, nous formulons des recommandations pratiques et actionnables pour améliorer votre organisation.</p></div></div>
+        <div class="benefit-row"><div class="benefit-icon bi-g"><i class="fas fa-clock"></i></div><div class="benefit-text"><h4>Respect des délais légaux</h4><p>Nous planifions méticuleusement nos missions pour vous remettre vos rapports dans les délais légaux ou contractuels.</p></div></div>
+      </div>
+      <div class="benefits-visual reveal-r">
+        <div class="bv-stat"><strong>ISA</strong><span>Normes Internationales d'Audit — référence de nos missions</span></div>
+        <div class="bv-divider"></div>
+        <div class="bv-feature"><i class="fas fa-check-circle"></i><div><h5>Rapport certifié</h5><p>Nos rapports d'audit sont acceptés par les banques, la DGI et les administrations publiques.</p></div></div>
+        <div class="bv-feature"><i class="fas fa-check-circle"></i><div><h5>Lettre de management</h5><p>En complément du rapport principal, nous remettons une lettre de recommandations à la direction.</p></div></div>
+        <div class="bv-feature"><i class="fas fa-check-circle"></i><div><h5>Suivi post-audit</h5><p>Nous accompagnons la mise en œuvre de nos recommandations pour garantir un impact concret.</p></div></div>
+        <div class="bv-feature"><i class="fas fa-check-circle"></i><div><h5>Confidentialité absolue</h5><p>Toutes les informations collectées durant la mission sont traitées avec la stricte confidentialité professionnelle.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROCESSUS ══ -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="sh reveal"><div class="tag orange"><i class="fas fa-route"></i> Déroulement</div><h2 class="h-lg">Comment se déroule une mission d'audit ?</h2><p class="lead">Une méthodologie rigoureuse en 4 phases pour des résultats fiables.</p></div>
+    <div class="svc-process-grid">
+      <div class="proc-card reveal" style="transition-delay:.05s"><div class="proc-num">01</div><h4>Prise de connaissance</h4><p>Collecte d'informations sur votre entreprise, son secteur, ses risques spécifiques et son environnement de contrôle.</p><span class="proc-time"><i class="fas fa-clock"></i> J1 – J3</span></div>
+      <div class="proc-card reveal" style="transition-delay:.1s"><div class="proc-num">02</div><h4>Évaluation des risques</h4><p>Identification des zones à risque, définition de l'approche d'audit et planification des procédures à mettre en œuvre.</p><span class="proc-time"><i class="fas fa-clock"></i> J4 – J7</span></div>
+      <div class="proc-card reveal" style="transition-delay:.15s"><div class="proc-num">03</div><h4>Travaux de terrain</h4><p>Réalisation des tests substantifs, sondages, confirmations externes et analyse des données comptables.</p><span class="proc-time"><i class="fas fa-clock"></i> J8 – J20</span></div>
+      <div class="proc-card reveal" style="transition-delay:.2s"><div class="proc-num">04</div><h4>Rapport & restitution</h4><p>Synthèse des constats, formulation de l'opinion d'audit et présentation du rapport à la direction et aux actionnaires.</p><span class="proc-time"><i class="fas fa-clock"></i> J21 – J25</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ AUTRES SERVICES ══ -->
+<section class="section"><div class="container">
+  <div class="sh reveal"><div class="tag"><i class="fas fa-th"></i> Autres services</div><h2 class="h-lg">Explorez toutes nos expertises</h2></div>
+  <div class="related-grid reveal">
+    <a href="comptabilite.html" class="related-card"><div class="related-icon ri-g"><i class="fas fa-calculator"></i></div><span>Comptabilité</span></a>
+    <a href="audit.html"        class="related-card current"><div class="related-icon ri-o"><i class="fas fa-search-dollar"></i></div><span>Audit & Contrôle</span></a>
+    <a href="fiscalite.html"    class="related-card"><div class="related-icon ri-g"><i class="fas fa-file-invoice-dollar"></i></div><span>Fiscalité</span></a>
+    <a href="formation.html"    class="related-card"><div class="related-icon ri-o"><i class="fas fa-graduation-cap"></i></div><span>Formation</span></a>
+    <a href="conseil.html"      class="related-card"><div class="related-icon ri-g"><i class="fas fa-chart-line"></i></div><span>Conseil en Gestion</span></a>
+  </div>
+</div></section>
+
+<!-- ══ CTA ══ -->
+<section class="cta-banner"><div class="container cta-inner">
+  <div class="tag light" style="margin:0 auto 20px"><i class="fas fa-search-dollar"></i> Audit & Contrôle</div>
+  <h2>Besoin d'un audit indépendant<br />et certifié ?</h2>
+  <p>Contactez-nous pour discuter de votre mission d'audit. Réponse sous 24h.</p>
+  <div class="cta-actions">
+    <a href="../index.html#contact" class="btn btn-primary btn-lg"><i class="fas fa-paper-plane"></i> Demander un devis</a>
+    <a href="tel:+237670365978"     class="btn btn-ghost btn-lg"><i class="fas fa-phone"></i> +237 670 365 978</a>
+  </div>
+</div></section>
+
+<!-- ══ FOOTER ══ -->
+<footer><div class="footer-main"><div class="container footer-grid">
+  <div class="footer-brand"><img src="../images/logoABE.png" alt="ABE Consulting" class="footer-logo-img" /><p>Cabinet pluridisciplinaire dédié à la comptabilité, l'audit, le contrôle et la fiscalité des entreprises au Cameroun.</p><div class="footer-socials"><a href="https://wa.me/237670365978" class="footer-social-btn" target="_blank"><i class="fab fa-whatsapp"></i></a><a href="mailto:abeconsultingsarl@yahoo.com" class="footer-social-btn"><i class="fas fa-envelope"></i></a></div></div>
+  <div class="footer-col"><h5>Services</h5><ul><li><a href="comptabilite.html">Comptabilité</a></li><li><a href="audit.html">Audit & Contrôle</a></li><li><a href="fiscalite.html">Fiscalité</a></li><li><a href="formation.html">Formation</a></li><li><a href="conseil.html">Conseil en Gestion</a></li><li><a href="commerce.html">Commerce & Import-Export</a></li></ul></div>
+  <div class="footer-col"><h5>Cabinet</h5><ul><li><a href="../index.html#about">À propos</a></li><li><a href="../index.html#certifications">Conformité légale</a></li><li><a href="../login.html">Espace client</a></li><li><a href="../index.html#contact">Contact</a></li></ul></div>
+  <div class="footer-col"><h5>Contact</h5><ul class="footer-contact-list"><li><i class="fas fa-map-marker-alt"></i><span>Akwa, Douala – Cameroun</span></li><li><i class="fas fa-phone-alt"></i><a href="tel:+237670365978">+237 670 365 978</a></li><li><i class="fas fa-envelope"></i><a href="mailto:abeconsultingsarl@yahoo.com">abeconsultingsarl@yahoo.com</a></li></ul></div>
+</div></div><div class="footer-bottom"><div class="container footer-bottom-inner"><p>&copy; 2024 ABE Consulting SARL. Tous droits réservés.</p><p>NIU : M022217153629Y — RCCM : RC/DLBB/2022/B/16/6</p></div></div></footer>
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+<script src="../js/i18n.js"></script>
+<script src="../js/main.js"></script>
+<script>window.addEventListener('scroll',()=>{document.getElementById('backTop').classList.toggle('show',window.scrollY>400);},{passive:true});</script>
+</body>
+</html>

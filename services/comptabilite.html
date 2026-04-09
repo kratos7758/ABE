@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Service de comptabilité – ABE Consulting SARL. Tenue comptable, bilans, états financiers conformes SYSCOHADA à Douala, Cameroun." />
+  <title>Comptabilité – ABE Consulting SARL | Douala, Cameroun</title>
+  <link rel="icon" type="image/png" href="../images/logoABE.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/service.css" />
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<header id="header" class="scrolled">
+  <div class="container header-inner">
+    <a href="../index.html" class="logo-wrap"><img src="../images/logoABE.png" alt="ABE Consulting SARL" class="logo" /></a>
+    <nav>
+      <ul class="nav-links">
+        <li class="has-dropdown">
+          <a href="../index.html#services" class="nav-link active-link">Services <i class="fas fa-chevron-down" style="font-size:.65rem;margin-left:3px"></i></a>
+          <div class="nav-dropdown">
+            <a href="comptabilite.html" class="nd-item active"><i class="fas fa-calculator nd-icon"></i><span>Comptabilité</span></a>
+            <a href="audit.html"        class="nd-item"><i class="fas fa-search-dollar nd-icon"></i><span>Audit & Contrôle</span></a>
+            <a href="fiscalite.html"    class="nd-item"><i class="fas fa-file-invoice-dollar nd-icon"></i><span>Fiscalité</span></a>
+            <a href="formation.html"    class="nd-item"><i class="fas fa-graduation-cap nd-icon"></i><span>Formation</span></a>
+            <a href="conseil.html"      class="nd-item"><i class="fas fa-chart-line nd-icon"></i><span>Conseil en Gestion</span></a>
+            <a href="commerce.html"     class="nd-item"><i class="fas fa-globe nd-icon"></i><span>Commerce & Import-Export</span></a>
+          </div>
+        </li>
+        <li><a href="../index.html#about"        class="nav-link">À propos</a></li>
+        <li><a href="../index.html#process"      class="nav-link">Approche</a></li>
+        <li><a href="../index.html#testimonials" class="nav-link">Témoignages</a></li>
+        <li><a href="../index.html#contact"      class="nav-link">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <a href="../login.html" class="btn-login"><i class="fas fa-user-circle"></i> <span data-i18n="nav_client_space">Espace client</span></a>
+      <a href="../index.html#contact" class="btn btn-primary" data-i18n="nav_book">Prendre RDV</a>
+      <button class="lang-toggle" onclick="toggleLang()" aria-label="Changer de langue / Switch language">
+        <span class="lang-fr active">FR</span>
+        <span class="lang-sep">|</span>
+        <span class="lang-en">EN</span>
+      </button>
+    </div>
+    <button class="hamburger" onclick="this.classList.toggle('open');document.getElementById('mobileMenu').classList.toggle('open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-drawer" id="mobileMenu">
+    <nav class="drawer-nav">
+      <a href="comptabilite.html" class="drawer-link">Comptabilité</a>
+      <a href="audit.html"        class="drawer-link">Audit & Contrôle</a>
+      <a href="fiscalite.html"    class="drawer-link">Fiscalité</a>
+      <a href="formation.html"    class="drawer-link">Formation</a>
+      <a href="conseil.html"      class="drawer-link">Conseil en Gestion</a>
+      <a href="commerce.html"     class="drawer-link">Commerce & Import-Export</a>
+    </nav>
+    <div class="drawer-actions">
+      <a href="../login.html"          class="btn btn-outline-dark">Espace client</a>
+      <a href="../index.html#contact"  class="btn btn-primary">Prendre RDV</a>
+    </div>
+  </div>
+</header>
+
+<!-- ══ HERO ══ -->
+<section class="svc-hero">
+  <div class="svc-hero-bg"></div>
+  <div class="svc-hero-gradient"></div>
+  <div class="svc-hero-grid"></div>
+  <div class="container svc-hero-inner">
+    <div class="breadcrumb">
+      <a href="../index.html">Accueil</a>
+      <span class="sep"><i class="fas fa-chevron-right" style="font-size:.6rem"></i></span>
+      <a href="../index.html#services">Services</a>
+      <span class="sep"><i class="fas fa-chevron-right" style="font-size:.6rem"></i></span>
+      <span class="current">Comptabilité</span>
+    </div>
+    <div class="svc-hero-tag"><i class="fas fa-calculator"></i> Service Comptable</div>
+    <div class="svc-hero-icon shi-green"><i class="fas fa-calculator"></i></div>
+    <h1 class="svc-hero-title">Comptabilité<br /><span class="grad">précise & conforme</span></h1>
+    <p class="svc-hero-sub">Tenue comptable rigoureuse, établissement des états financiers et clôture d'exercices conformes au SYSCOHADA révisé — pour que vous ayez une vision claire de votre réalité financière.</p>
+    <div class="svc-hero-ctas">
+      <a href="../index.html#contact" class="btn btn-primary btn-lg"><i class="fas fa-paper-plane"></i> Demander un devis</a>
+      <a href="tel:+237670365978"     class="btn btn-ghost btn-lg"><i class="fas fa-phone"></i> Nous appeler</a>
+    </div>
+    <div class="svc-hero-stats">
+      <div class="svc-stat"><strong>100+</strong><span>Dossiers traités / an</span></div>
+      <div class="svc-stat-sep"></div>
+      <div class="svc-stat"><strong>SYSCOHADA</strong><span>Norme maîtrisée</span></div>
+      <div class="svc-stat-sep"></div>
+      <div class="svc-stat"><strong>100%</strong><span>Conformité DGI</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ INTRO ══ -->
+<section class="section">
+  <div class="container svc-intro">
+    <div class="intro-visual reveal-l">
+      <div class="intro-img-card">
+        <div class="intro-img-inner">
+          <div class="intro-big-icon ibi-g"><i class="fas fa-calculator"></i></div>
+          <p style="font-family:'Poppins',sans-serif;font-weight:700;color:var(--c-900);font-size:1.1rem">Votre comptabilité<br/>entre de bonnes mains</p>
+          <div style="height:1px;width:100%;background:linear-gradient(90deg,transparent,var(--c-green),transparent)"></div>
+          <p style="font-size:.82rem;color:var(--c-500);text-align:center">Norme SYSCOHADA révisée — OHADA<br/>Conforme DGI Cameroun</p>
+        </div>
+      </div>
+    </div>
+    <div class="intro-text reveal-r">
+      <div class="tag"><i class="fas fa-info-circle"></i> Notre prestation</div>
+      <h2>Une comptabilité fiable comme socle de votre succès</h2>
+      <p>La comptabilité est le langage de l'entreprise. Chez ABE Consulting, nous prenons en charge l'intégralité de votre cycle comptable — de la saisie des pièces à l'établissement des états financiers annuels — avec une maîtrise approfondie du <strong>SYSCOHADA révisé</strong> et des exigences de la <strong>Direction Générale des Impôts</strong> du Cameroun.</p>
+      <p>Que vous soyez une TPE, une PME ou une grande entreprise, nous adaptons nos prestations à votre taille, votre secteur et votre rythme de croissance.</p>
+      <div class="intro-checklist">
+        <div class="ic-item">Tenue régulière et mise à jour des livres comptables</div>
+        <div class="ic-item">Établissement des états financiers annuels (bilan, compte de résultat, TAFIRE)</div>
+        <div class="ic-item">Rapprochements bancaires et lettrage des comptes</div>
+        <div class="ic-item">Préparation et assistance à la clôture de l'exercice</div>
+        <div class="ic-item">Révision comptable et détection des erreurs</div>
+      </div>
+      <a href="../index.html#contact" class="btn btn-primary">Démarrer maintenant <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PRESTATIONS INCLUSES ══ -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="sh reveal">
+      <div class="tag"><i class="fas fa-list-check"></i> Détail de la mission</div>
+      <h2 class="h-lg">Prestations incluses</h2>
+      <p class="lead">Tout ce dont votre entreprise a besoin pour une comptabilité irréprochable.</p>
+    </div>
+    <div class="included-grid">
+
+      <div class="inc-card reveal" style="transition-delay:.05s">
+        <div class="inc-icon ii-g"><i class="fas fa-book"></i></div>
+        <h3>Tenue des livres</h3>
+        <p>Saisie chronologique de toutes les opérations dans les livres obligatoires (journal, grand livre, balance).</p>
+        <ul class="inc-list">
+          <li><i class="fas fa-check"></i> Journal général</li>
+          <li><i class="fas fa-check"></i> Grand livre des comptes</li>
+          <li><i class="fas fa-check"></i> Balance des comptes</li>
+          <li><i class="fas fa-check"></i> Livre d'inventaire</li>
+        </ul>
+      </div>
+
+      <div class="inc-card reveal" style="transition-delay:.1s">
+        <div class="inc-icon ii-o"><i class="fas fa-file-alt"></i></div>
+        <h3>États financiers</h3>
+        <p>Établissement des états de synthèse obligatoires conformes au SYSCOHADA révisé.</p>
+        <ul class="inc-list">
+          <li><i class="fas fa-check"></i> Bilan actif / passif</li>
+          <li><i class="fas fa-check"></i> Compte de résultat</li>
+          <li><i class="fas fa-check"></i> TAFIRE</li>
+          <li><i class="fas fa-check"></i> Notes annexes</li>
+        </ul>
+      </div>
+
+      <div class="inc-card reveal" style="transition-delay:.15s">
+        <div class="inc-icon ii-b"><i class="fas fa-exchange-alt"></i></div>
+        <h3>Rapprochements bancaires</h3>
+        <p>Vérification et réconciliation des soldes comptables avec les relevés de vos comptes bancaires.</p>
+        <ul class="inc-list">
+          <li><i class="fas fa-check"></i> Contrôle mensuel</li>
+          <li><i class="fas fa-check"></i> Détection d'écarts</li>
+          <li><i class="fas fa-check"></i> Lettrage automatique</li>
+          <li><i class="fas fa-check"></i> Rapport de reconciliation</li>
+        </ul>
+      </div>
+
+      <div class="inc-card reveal" style="transition-delay:.2s">
+        <div class="inc-icon ii-p"><i class="fas fa-users"></i></div>
+        <h3>Gestion des tiers</h3>
+        <p>Suivi rigoureux des comptes clients, fournisseurs et du personnel pour une trésorerie maîtrisée.</p>
+        <ul class="inc-list">
+          <li><i class="fas fa-check"></i> Balance âgée clients</li>
+          <li><i class="fas fa-check"></i> Suivi fournisseurs</li>
+          <li><i class="fas fa-check"></i> Paie & charges sociales</li>
+          <li><i class="fas fa-check"></i> Justification des soldes</li>
+        </ul>
+      </div>
+
+      <div class="inc-card reveal" style="transition-delay:.25s">
+        <div class="inc-icon ii-y"><i class="fas fa-calendar-check"></i></div>
+        <h3>Clôture d'exercice</h3>
+        <p>Organisation et supervision de la clôture annuelle : amortissements, provisions, régularisations.</p>
+        <ul class="inc-list">
+          <li><i class="fas fa-check"></i> Inventaires physiques</li>
+          <li><i class="fas fa-check"></i> Calcul des amortissements</li>
+          <li><i class="fas fa-check"></i> Provisions réglementées</li>
+          <li><i class="fas fa-check"></i> Arrêté des comptes</li>
+        </ul>
+      </div>
+
+      <div class="inc-card reveal" style="transition-delay:.3s">
+        <div class="inc-icon ii-g"><i class="fas fa-search"></i></div>
+        <h3>Révision comptable</h3>
+        <p>Examen critique de votre comptabilité pour identifier et corriger les anomalies avant toute déclaration.</p>
+        <ul class="inc-list">
+          <li><i class="fas fa-check"></i> Revue des imputations</li>
+          <li><i class="fas fa-check"></i> Contrôle des calculs</li>
+          <li><i class="fas fa-check"></i> Cohérence des soldes</li>
+          <li><i class="fas fa-check"></i> Rapport de révision</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ AVANTAGES ══ -->
+<section class="section">
+  <div class="container">
+    <div class="sh reveal">
+      <div class="tag"><i class="fas fa-star"></i> Pourquoi nous choisir</div>
+      <h2 class="h-lg">Les avantages ABE Consulting</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start">
+      <div class="benefits-list reveal-l">
+        <div class="benefit-row">
+          <div class="benefit-icon bi-g"><i class="fas fa-shield-alt"></i></div>
+          <div class="benefit-text">
+            <h4>Conformité totale SYSCOHADA & DGI</h4>
+            <p>Nos travaux respectent scrupuleusement l'Acte Uniforme OHADA relatif au droit comptable et les instructions de la Direction Générale des Impôts du Cameroun.</p>
+          </div>
+        </div>
+        <div class="benefit-row">
+          <div class="benefit-icon bi-o"><i class="fas fa-clock"></i></div>
+          <div class="benefit-text">
+            <h4>Délais toujours respectés</h4>
+            <p>États financiers, liasse fiscale, déclarations : notre organisation interne garantit le respect de toutes vos échéances légales et contractuelles.</p>
+          </div>
+        </div>
+        <div class="benefit-row">
+          <div class="benefit-icon bi-g"><i class="fas fa-eye"></i></div>
+          <div class="benefit-text">
+            <h4>Transparence & lisibilité</h4>
+            <p>Nous vous fournissons des tableaux de bord mensuels clairs pour suivre votre situation financière en temps réel et prendre de meilleures décisions.</p>
+          </div>
+        </div>
+        <div class="benefit-row">
+          <div class="benefit-icon bi-o"><i class="fas fa-headset"></i></div>
+          <div class="benefit-text">
+            <h4>Interlocuteur dédié & réactif</h4>
+            <p>Un expert comptable référent pour votre dossier, joignable rapidement pour répondre à toutes vos questions au quotidien.</p>
+          </div>
+        </div>
+      </div>
+      <div class="benefits-visual reveal-r">
+        <div class="bv-stat">
+          <strong>SYSCOHADA</strong>
+          <span>Norme comptable OHADA — référence de tous nos travaux</span>
+        </div>
+        <div class="bv-divider"></div>
+        <div class="bv-feature">
+          <i class="fas fa-check-circle"></i>
+          <div><h5>Saisie multi-devises</h5><p>Gestion des opérations en FCFA, EUR, USD et autres devises pour les entreprises à dimension internationale.</p></div>
+        </div>
+        <div class="bv-feature">
+          <i class="fas fa-check-circle"></i>
+          <div><h5>Outils modernes</h5><p>Utilisation de logiciels comptables reconnus (Sage, Ciel, ERP) pour un traitement rapide et fiable de vos données.</p></div>
+        </div>
+        <div class="bv-feature">
+          <i class="fas fa-check-circle"></i>
+          <div><h5>Espace client en ligne</h5><p>Accédez à vos documents (bilans, balances, relevés) à tout moment depuis votre espace sécurisé.</p></div>
+        </div>
+        <div class="bv-feature">
+          <i class="fas fa-check-circle"></i>
+          <div><h5>Confidentialité absolue</h5><p>Toutes vos données financières sont traitées avec la plus stricte confidentialité professionnelle.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROCESSUS ══ -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="sh reveal">
+      <div class="tag"><i class="fas fa-route"></i> Notre processus</div>
+      <h2 class="h-lg">Comment se déroule la mission ?</h2>
+      <p class="lead">Un processus clair, de la première réunion à la remise des états financiers.</p>
+    </div>
+    <div class="svc-process-grid">
+      <div class="proc-card reveal" style="transition-delay:.05s">
+        <div class="proc-num">01</div>
+        <h4>Diagnostic initial</h4>
+        <p>Analyse de votre situation actuelle, collecte des pièces et évaluation du volume de transactions.</p>
+        <span class="proc-time"><i class="fas fa-clock"></i> J+1</span>
+      </div>
+      <div class="proc-card reveal" style="transition-delay:.1s">
+        <div class="proc-num">02</div>
+        <h4>Mise en place du plan comptable</h4>
+        <p>Paramétrage du plan de comptes adapté à votre activité selon le SYSCOHADA révisé.</p>
+        <span class="proc-time"><i class="fas fa-clock"></i> J+3</span>
+      </div>
+      <div class="proc-card reveal" style="transition-delay:.15s">
+        <div class="proc-num">03</div>
+        <h4>Saisie & traitement mensuel</h4>
+        <p>Intégration régulière des pièces, rapprochements bancaires et production de la balance mensuelle.</p>
+        <span class="proc-time"><i class="fas fa-clock"></i> Mensuel</span>
+      </div>
+      <div class="proc-card reveal" style="transition-delay:.2s">
+        <div class="proc-num">04</div>
+        <h4>Clôture & remise des états</h4>
+        <p>Finalisation de l'exercice, révision, travaux d'inventaire et remise des états financiers certifiés.</p>
+        <span class="proc-time"><i class="fas fa-clock"></i> Annuel</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TARIFS ══ -->
+<section class="section">
+  <div class="container">
+    <div class="sh reveal">
+      <div class="tag orange"><i class="fas fa-tag"></i> Nos formules</div>
+      <h2 class="h-lg">Formules adaptées à votre taille</h2>
+      <p class="lead">Des tarifs transparents, sans surprise. Chaque formule est ajustable selon votre volume.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card reveal" style="transition-delay:.05s">
+        <div class="pricing-name">Essentiel</div>
+        <div class="pricing-price"><span class="price-main">Sur devis</span></div>
+        <p class="pricing-desc">Idéal pour les TPE et auto-entrepreneurs avec un faible volume de transactions.</p>
+        <div class="pricing-features">
+          <div class="pf-line"><i class="fas fa-check pf-yes"></i> Tenue des livres comptables</div>
+          <div class="pf-line"><i class="fas fa-check pf-yes"></i> Balance mensuelle</div>
+          <div class="pf-line"><i class="fas fa-check pf-yes"></i> États financiers annuels</div>
+          <div class="pf-line disabled"><i class="fas fa-times pf-no"></i> Rapprochements bancaires avancés</div>
+          <div class="pf-line disabled"><i class="fas fa-times pf-no"></i> Suivi multi-comptes</div>
+        </div>
+        <a href="../index.html#contact" class="btn btn-outline-dark btn-block">Demander un devis</a>
+      </div>
+      <div class="pricing-card featured reveal" style="transition-delay:.1s">
+        <div class="pricing-badge">Le plus choisi</div>
+        <div class="pricing-name">Standard</div>
+        <div class="pricing-price"><span class="price-main">Sur devis</span></div>
+        <p class="pricing-desc">Pour les PME avec un volume moyen, nécessitant un suivi mensuel rigoureux.</p>
+        <div class="pricing-features">
+          <div class="pf-line"><i class="fas fa-check pf-yes"></i> Tenue complète des livres</div>
+          <div class="pf-line"><i class="fas fa-check pf-yes"></i> Rapprochements bancaires</div>
+          <div class="pf-line"><i class="fas fa-check pf-yes"></i> Gestion tiers (clients/fournisseurs)</div>
+          <div class="pf-line"><i class="fas fa-check pf-yes"></i> États financiers + annexes</div>
+          <div class="pf-line"><i class="fas fa-check pf-yes"></i> Rapport de gestion mensuel</div>
+        </div>
+        <a href="../index.html#contact" class="btn btn-primary btn-block">Demander un devis</a>
+      </div>
+      <div class="pricing-card reveal" style="transition-delay:.15s">
+        <div class="pricing-name">Premium</div>
+        <div class="pricing-price"><span class="price-main">Sur devis</span></div>
+        <p class="pricing-desc">Pour les grandes entreprises avec un volume élevé et des besoins spécifiques (groupe, multi-devises).</p>
+        <div class="pricing-features">
+          <div class="pf-line"><i class="fas fa-check pf-yes"></i> Tout le Standard inclus</div>
+          <div class="pf-line"><i class="fas fa-check pf-yes"></i> Comptabilité analytique</div>
+          <div class="pf-line"><i class="fas fa-check pf-yes"></i> Consolidation de comptes</div>
+          <div class="pf-line"><i class="fas fa-check pf-yes"></i> Tableaux de bord avancés</div>
+          <div class="pf-line"><i class="fas fa-check pf-yes"></i> Conseiller dédié prioritaire</div>
+        </div>
+        <a href="../index.html#contact" class="btn btn-outline-dark btn-block">Demander un devis</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ AUTRES SERVICES ══ -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="sh reveal">
+      <div class="tag"><i class="fas fa-th"></i> Autres services</div>
+      <h2 class="h-lg">Explorez toutes nos expertises</h2>
+    </div>
+    <div class="related-grid reveal">
+      <a href="comptabilite.html" class="related-card current"><div class="related-icon ri-g"><i class="fas fa-calculator"></i></div><span>Comptabilité</span></a>
+      <a href="audit.html"        class="related-card"><div class="related-icon ri-o"><i class="fas fa-search-dollar"></i></div><span>Audit & Contrôle</span></a>
+      <a href="fiscalite.html"    class="related-card"><div class="related-icon ri-g"><i class="fas fa-file-invoice-dollar"></i></div><span>Fiscalité</span></a>
+      <a href="formation.html"    class="related-card"><div class="related-icon ri-o"><i class="fas fa-graduation-cap"></i></div><span>Formation</span></a>
+      <a href="conseil.html"      class="related-card"><div class="related-icon ri-g"><i class="fas fa-chart-line"></i></div><span>Conseil en Gestion</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section class="cta-banner">
+  <div class="container cta-inner">
+    <div class="tag light" style="margin:0 auto 20px"><i class="fas fa-calculator"></i> Comptabilité</div>
+    <h2>Confiez votre comptabilité<br />à des experts certifiés</h2>
+    <p>Obtenez une consultation gratuite et un devis personnalisé sous 24h.</p>
+    <div class="cta-actions">
+      <a href="../index.html#contact" class="btn btn-primary btn-lg"><i class="fas fa-paper-plane"></i> Devis gratuit</a>
+      <a href="tel:+237670365978"     class="btn btn-ghost btn-lg"><i class="fas fa-phone"></i> +237 670 365 978</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-main">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <img src="../images/logoABE.png" alt="ABE Consulting" class="footer-logo-img" />
+        <p>Cabinet pluridisciplinaire dédié à la comptabilité, l'audit, le contrôle et la fiscalité des entreprises au Cameroun.</p>
+        <div class="footer-socials">
+          <a href="https://wa.me/237670365978" class="footer-social-btn" target="_blank"><i class="fab fa-whatsapp"></i></a>
+          <a href="mailto:abeconsultingsarl@yahoo.com" class="footer-social-btn"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+      <div class="footer-col"><h5>Services</h5><ul>
+        <li><a href="comptabilite.html">Comptabilité</a></li>
+        <li><a href="audit.html">Audit & Contrôle</a></li>
+        <li><a href="fiscalite.html">Fiscalité</a></li>
+        <li><a href="formation.html">Formation</a></li>
+        <li><a href="conseil.html">Conseil en Gestion</a></li>
+        <li><a href="commerce.html">Commerce & Import-Export</a></li>
+      </ul></div>
+      <div class="footer-col"><h5>Cabinet</h5><ul>
+        <li><a href="../index.html#about">À propos</a></li>
+        <li><a href="../index.html#certifications">Conformité légale</a></li>
+        <li><a href="../login.html">Espace client</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul></div>
+      <div class="footer-col"><h5>Contact</h5><ul class="footer-contact-list">
+        <li><i class="fas fa-map-marker-alt"></i><span>Akwa, Douala – Cameroun</span></li>
+        <li><i class="fas fa-phone-alt"></i><a href="tel:+237670365978">+237 670 365 978</a></li>
+        <li><i class="fas fa-envelope"></i><a href="mailto:abeconsultingsarl@yahoo.com">abeconsultingsarl@yahoo.com</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div class="container footer-bottom-inner">
+    <p>&copy; 2024 ABE Consulting SARL. Tous droits réservés.</p>
+    <p>NIU : M022217153629Y — RCCM : RC/DLBB/2022/B/16/6</p>
+  </div></div>
+</footer>
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+<script src="../js/i18n.js"></script>
+<script src="../js/main.js"></script>
+<script>
+  window.addEventListener('scroll',()=>{
+    document.getElementById('backTop').classList.toggle('show',window.scrollY>400);
+  },{passive:true});
+</script>
+</body>
+</html>

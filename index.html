@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ABE Consulting SARL – Cabinet comptable, audit, contrôle et fiscalité à Douala, Cameroun. Expertise SYSCOHADA, conformité DGI." />
+  <title>ABE Consulting SARL – Comptabilité · Audit · Contrôle · Fiscalité | Douala</title>
+  <link rel="icon" type="image/png" href="images/logoABE.png" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <!-- Swiper -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<!-- Alpine.js deferred so x-data works -->
+<body x-data="app()" x-init="init()">
+
+  <!-- ══════════ PRELOADER ══════════ -->
+  <div id="preloader">
+    <img src="images/logoABE.png" alt="ABE Consulting" class="preloader-logo" />
+    <div class="preloader-bar"><div class="preloader-bar-fill"></div></div>
+  </div>
+
+  <!-- ══════════ MOBILE DRAWER ══════════ -->
+  <div class="drawer-overlay" :class="{ open: drawerOpen }" @click="drawerOpen=false"></div>
+  <div class="mobile-drawer" :class="{ open: drawerOpen }">
+    <nav class="drawer-nav">
+      <a href="#services"       class="drawer-link" @click="drawerOpen=false" data-i18n="nav_services">Services</a>
+      <a href="#about"          class="drawer-link" @click="drawerOpen=false" data-i18n="nav_about">À propos</a>
+      <a href="#process"        class="drawer-link" @click="drawerOpen=false" data-i18n="nav_approach">Notre approche</a>
+      <a href="#testimonials"   class="drawer-link" @click="drawerOpen=false" data-i18n="nav_testimonials">Témoignages</a>
+      <a href="#faq"            class="drawer-link" @click="drawerOpen=false" data-i18n="nav_faq">FAQ</a>
+      <a href="#contact"        class="drawer-link" @click="drawerOpen=false" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="drawer-actions">
+      <a href="login.html" class="btn btn-outline-dark"><i class="fas fa-user"></i> <span data-i18n="nav_client_space">Espace client</span></a>
+      <a href="#contact" class="btn btn-primary" @click="drawerOpen=false"><i class="fas fa-paper-plane"></i> <span data-i18n="nav_book">Prendre RDV</span></a>
+    </div>
+  </div>
+
+  <!-- ══════════ HEADER ══════════ -->
+  <header id="header" :class="{ scrolled: scrolled }">
+    <div class="container header-inner">
+      <a href="#hero" class="logo-wrap">
+        <img src="images/logoABE.png" alt="ABE Consulting SARL" class="logo" />
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li class="has-dropdown">
+            <a href="#services" class="nav-link">Services <i class="fas fa-chevron-down" style="font-size:.65rem;margin-left:3px"></i></a>
+            <div class="nav-dropdown">
+              <a href="services/comptabilite.html" class="nd-item"><i class="fas fa-calculator nd-icon"></i><span>Comptabilité</span></a>
+              <a href="services/audit.html"        class="nd-item"><i class="fas fa-search-dollar nd-icon"></i><span>Audit & Contrôle</span></a>
+              <a href="services/fiscalite.html"    class="nd-item"><i class="fas fa-file-invoice-dollar nd-icon"></i><span>Fiscalité</span></a>
+              <a href="services/formation.html"    class="nd-item"><i class="fas fa-graduation-cap nd-icon"></i><span>Formation Pro</span></a>
+              <a href="services/conseil.html"      class="nd-item"><i class="fas fa-chart-line nd-icon"></i><span>Conseil en Gestion</span></a>
+              <a href="services/commerce.html"     class="nd-item"><i class="fas fa-globe nd-icon"></i><span>Commerce & Import-Export</span></a>
+            </div>
+          </li>
+          <li><a href="#about"        class="nav-link" data-i18n="nav_about">À propos</a></li>
+          <li><a href="#process"      class="nav-link" data-i18n="nav_approach">Approche</a></li>
+          <li><a href="#testimonials" class="nav-link" data-i18n="nav_testimonials">Témoignages</a></li>
+          <li><a href="#faq"          class="nav-link" data-i18n="nav_faq">FAQ</a></li>
+          <li><a href="#contact"      class="nav-link" data-i18n="nav_contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <a href="login.html" class="btn-login"><i class="fas fa-user-circle"></i> <span data-i18n="nav_client_space">Espace client</span></a>
+        <a href="#contact" class="btn btn-primary" data-i18n="nav_book">Prendre RDV</a>
+        <button class="lang-toggle" onclick="toggleLang()" aria-label="Changer de langue / Switch language">
+          <span class="lang-fr active">FR</span>
+          <span class="lang-sep">|</span>
+          <span class="lang-en">EN</span>
+        </button>
+      </div>
+      <button class="hamburger" :class="{ open: drawerOpen }" @click="drawerOpen=!drawerOpen" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ══════════ HERO ══════════ -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-gradient"></div>
+    <div class="hero-grid"></div>
+
+    <div class="container hero-inner">
+      <div class="hero-eyebrow" data-i18n="hero_eyebrow">
+        Cabinet certifié – Douala, Cameroun
+      </div>
+
+      <h1 class="hero-title">
+        <span class="line"><span class="word" data-i18n="hero_title_1">Maîtrisez vos </span><span class="word grad" data-i18n="hero_title_grad1">finances,</span></span>
+        <span class="line"><span class="word" data-i18n="hero_title_2">accélérez votre </span><span class="word grad" data-i18n="hero_title_grad2">croissance.</span></span>
+      </h1>
+
+      <p class="hero-sub" data-i18n="hero_sub">
+        ABE Consulting SARL accompagne les entreprises camerounaises et internationales
+        dans leur gestion comptable, fiscale et financière — avec rigueur et proximité.
+      </p>
+
+      <div class="hero-ctas">
+        <a href="#contact" class="btn btn-primary btn-lg">
+          <i class="fas fa-calendar-check"></i> <span data-i18n="hero_cta1">Consultation gratuite</span>
+        </a>
+        <a href="#services" class="btn btn-ghost btn-lg">
+          <span data-i18n="hero_cta2">Nos services</span> <i class="fas fa-arrow-down"></i>
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <strong><span class="count" data-target="150">0</span>+</strong>
+          <span data-i18n="hero_stat1_label">Clients accompagnés</span>
+        </div>
+        <div class="hero-stat">
+          <strong><span class="count" data-target="3">0</span>+</strong>
+          <span data-i18n="hero_stat2_label">Années d'expertise</span>
+        </div>
+        <div class="hero-stat">
+          <strong>6</strong>
+          <span data-i18n="hero_stat3_label">Domaines d'activité</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      Défiler<span></span>
+    </div>
+  </section>
+
+  <!-- ══════════ MARQUEE ══════════ -->
+  <div class="marquee-section">
+    <div class="marquee-track">
+      <div class="marquee-item"><i class="fas fa-building"></i> TPE & PME</div>
+      <div class="marquee-item"><i class="fas fa-store"></i> Commerçants</div>
+      <div class="marquee-item"><i class="fas fa-globe-africa"></i> Import / Export</div>
+      <div class="marquee-item"><i class="fas fa-hands-helping"></i> ONG & Associations</div>
+      <div class="marquee-item"><i class="fas fa-industry"></i> Industries</div>
+      <div class="marquee-item"><i class="fas fa-home"></i> Immobilier</div>
+      <div class="marquee-item"><i class="fas fa-seedling"></i> Agro-businesses</div>
+      <div class="marquee-item"><i class="fas fa-briefcase"></i> Holding & Groupes</div>
+      <!-- Duplicate for seamless loop -->
+      <div class="marquee-item"><i class="fas fa-building"></i> TPE & PME</div>
+      <div class="marquee-item"><i class="fas fa-store"></i> Commerçants</div>
+      <div class="marquee-item"><i class="fas fa-globe-africa"></i> Import / Export</div>
+      <div class="marquee-item"><i class="fas fa-hands-helping"></i> ONG & Associations</div>
+      <div class="marquee-item"><i class="fas fa-industry"></i> Industries</div>
+      <div class="marquee-item"><i class="fas fa-home"></i> Immobilier</div>
+      <div class="marquee-item"><i class="fas fa-seedling"></i> Agro-businesses</div>
+      <div class="marquee-item"><i class="fas fa-briefcase"></i> Holding & Groupes</div>
+    </div>
+  </div>
+
+  <!-- ══════════ SERVICES ══════════ -->
+  <section id="services" class="section">
+    <div class="container">
+      <div class="sh reveal">
+        <div class="tag"><i class="fas fa-layer-group"></i> <span data-i18n="sec_services_tag">Nos domaines</span></div>
+        <h2 class="h-lg" data-i18n-html="sec_services_h2">Une expertise pluridisciplinaire<br />à votre service</h2>
+        <p class="lead" data-i18n="sec_services_lead">Un accompagnement global, de la tenue comptable à la stratégie fiscale, pour toutes les étapes de la vie de votre entreprise.</p>
+      </div>
+
+      <div class="services-grid">
+
+        <div class="svc-card reveal" style="transition-delay:.05s">
+          <div class="svc-icon si-g"><i class="fas fa-calculator"></i></div>
+          <h3 data-i18n="svc1_title">Comptabilité</h3>
+          <p data-i18n="svc1_desc">Tenue et révision comptable, bilans et états financiers conformes au SYSCOHADA révisé.</p>
+          <ul class="svc-list">
+            <li data-i18n="svc1_li1">Tenue des livres comptables</li>
+            <li data-i18n="svc1_li2">Bilans & états financiers</li>
+            <li data-i18n="svc1_li3">Rapprochements bancaires</li>
+            <li data-i18n="svc1_li4">Clôture des exercices</li>
+          </ul>
+          <a href="services/comptabilite.html" class="svc-link"><span data-i18n="svc_more">En savoir plus</span> <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="svc-card featured reveal" style="transition-delay:.1s">
+          <div class="svc-badge" data-i18n="svc_top_badge">Top service</div>
+          <div class="svc-icon si-o"><i class="fas fa-search-dollar"></i></div>
+          <h3 data-i18n="svc2_title">Audit & Contrôle</h3>
+          <p data-i18n="svc2_desc">Audit légal et contractuel, contrôle interne et évaluation des risques pour vos investisseurs et partenaires.</p>
+          <ul class="svc-list">
+            <li data-i18n="svc2_li1">Audit légal des comptes</li>
+            <li data-i18n="svc2_li2">Contrôle interne</li>
+            <li data-i18n="svc2_li3">Analyse des risques</li>
+            <li data-i18n="svc2_li4">Rapports d'audit certifiés</li>
+          </ul>
+          <a href="services/audit.html" class="svc-link"><span data-i18n="svc_more">En savoir plus</span> <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="svc-card reveal" style="transition-delay:.15s">
+          <div class="svc-icon si-g"><i class="fas fa-file-invoice-dollar"></i></div>
+          <h3 data-i18n="svc3_title">Fiscalité</h3>
+          <p data-i18n="svc3_desc">Déclarations fiscales, optimisation légale et assistance lors des contrôles de la Direction Générale des Impôts.</p>
+          <ul class="svc-list">
+            <li data-i18n="svc3_li1">Déclarations IS, TVA, IRPP</li>
+            <li data-i18n="svc3_li2">Optimisation fiscale</li>
+            <li data-i18n="svc3_li3">Assistance contrôle DGI</li>
+            <li data-i18n="svc3_li4">Contentieux fiscal</li>
+          </ul>
+          <a href="services/fiscalite.html" class="svc-link"><span data-i18n="svc_more">En savoir plus</span> <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="svc-card reveal" style="transition-delay:.2s">
+          <div class="svc-icon si-o"><i class="fas fa-graduation-cap"></i></div>
+          <h3 data-i18n="svc4_title">Formation Professionnelle</h3>
+          <p data-i18n="svc4_desc">Formations sur mesure pour renforcer les compétences de vos équipes comptables, financières et managériales.</p>
+          <ul class="svc-list">
+            <li data-i18n="svc4_li1">SYSCOHADA révisé</li>
+            <li data-i18n="svc4_li2">Fiscalité pratique DGI</li>
+            <li data-i18n="svc4_li3">Logiciels comptables</li>
+            <li data-i18n="svc4_li4">Gestion financière</li>
+          </ul>
+          <a href="services/formation.html" class="svc-link"><span data-i18n="svc_more">En savoir plus</span> <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="svc-card reveal" style="transition-delay:.25s">
+          <div class="svc-icon si-g"><i class="fas fa-chart-line"></i></div>
+          <h3 data-i18n="svc5_title">Conseil en Gestion</h3>
+          <p data-i18n="svc5_desc">Création d'entreprise, business plan, restructuration financière et tableaux de bord pour piloter votre activité.</p>
+          <ul class="svc-list">
+            <li data-i18n="svc5_li1">Création & immatriculation</li>
+            <li data-i18n="svc5_li2">Business plan & prévisionnel</li>
+            <li data-i18n="svc5_li3">Tableaux de bord</li>
+            <li data-i18n="svc5_li4">Restructuration financière</li>
+          </ul>
+          <a href="services/conseil.html" class="svc-link"><span data-i18n="svc_more">En savoir plus</span> <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="svc-card reveal" style="transition-delay:.3s">
+          <div class="svc-icon si-o"><i class="fas fa-globe"></i></div>
+          <h3 data-i18n="svc6_title">Commerce & Import-Export</h3>
+          <p data-i18n="svc6_desc">Accompagnement des opérations commerciales, d'import-export et des transactions immobilières et mobilières.</p>
+          <ul class="svc-list">
+            <li data-i18n="svc6_li1">Opérations d'import-export</li>
+            <li data-i18n="svc6_li2">Transactions commerciales</li>
+            <li data-i18n="svc6_li3">Immobilier & foncier</li>
+            <li data-i18n="svc6_li4">Agriculture & élevage</li>
+          </ul>
+          <a href="services/commerce.html" class="svc-link"><span data-i18n="svc_more">En savoir plus</span> <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ STATS ══════════ -->
+  <div class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-icon"><i class="fas fa-users"></i></div>
+          <div class="stat-num"><span class="count" data-target="150">0</span><span class="suffix">+</span></div>
+          <div class="stat-label" data-i18n="stat1_label">Clients accompagnés</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
+          <div class="stat-num"><span class="count" data-target="3">0</span><span class="suffix">+</span></div>
+          <div class="stat-label" data-i18n="stat2_label">Années d'expertise</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon"><i class="fas fa-file-check"></i></div>
+          <div class="stat-num"><span class="count" data-target="500">0</span><span class="suffix">+</span></div>
+          <div class="stat-label" data-i18n="stat3_label">Missions réalisées</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon"><i class="fas fa-shield-check"></i></div>
+          <div class="stat-num"><span class="count" data-target="100">0</span><span class="suffix">%</span></div>
+          <div class="stat-label" data-i18n="stat4_label">Conformité fiscale</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ ABOUT ══════════ -->
+  <section id="about" class="section section-alt">
+    <div class="container">
+      <div class="about-grid">
+
+        <div class="about-visual reveal-l">
+          <div class="about-img-wrap">
+            <div class="about-img-inner">
+              <img src="images/logoABE.png" alt="ABE Consulting SARL" class="about-big-logo" />
+              <div class="about-divider"></div>
+              <div class="about-tagline-badge">Comptabilité · Audit · Contrôle · Fiscalité</div>
+            </div>
+          </div>
+          <div class="about-float af1">
+            <span class="af-icon o"><i class="fas fa-award"></i></span>
+            <div>
+              <strong data-i18n="about_float1_title">Conformité DGI</strong>
+              <small data-i18n="about_float1_sub">CDI Douala 2 – À jour</small>
+            </div>
+          </div>
+          <div class="about-float af2">
+            <span class="af-icon g"><i class="fas fa-map-marker-alt"></i></span>
+            <div>
+              <strong data-i18n="about_float2_title">Akwa, Douala</strong>
+              <small data-i18n="about_float2_sub">BP 15609 Douala</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-content reveal-r">
+          <div>
+            <div class="tag"><i class="fas fa-info-circle"></i> <span data-i18n="sec_about_tag">Qui sommes-nous</span></div>
+            <h2 class="h-lg" data-i18n="sec_about_h2">Un cabinet au service de vos ambitions</h2>
+          </div>
+          <p style="color:var(--c-500);line-height:1.8;" data-i18n-html="about_p1">
+            Fondée en 2022 et immatriculée au Registre du Commerce de Douala-Bonanjo sous le numéro
+            <strong style="color:var(--c-900)">RC/DLBB/2022/B/16/6</strong>, <strong style="color:var(--c-900)">ABE Consulting SARL</strong>
+            est un cabinet pluridisciplinaire qui accompagne les entreprises dans la maîtrise de leurs enjeux comptables,
+            fiscaux et financiers.
+          </p>
+          <p style="color:var(--c-500);line-height:1.8;" data-i18n-html="about_p2">
+            Dirigé par <strong style="color:var(--c-900)">M. Charly TEMGOUA</strong>, notre équipe allie rigueur professionnelle
+            et connaissance approfondie du droit OHADA et de la réglementation fiscale camerounaise.
+          </p>
+          <div class="values-list">
+            <div class="val-item">
+              <div class="val-icon"><i class="fas fa-shield-alt"></i></div>
+              <div>
+                <h4 data-i18n="val1_title">Intégrité</h4>
+                <p data-i18n="val1_desc">Respect strict des normes professionnelles et de la déontologie du métier.</p>
+              </div>
+            </div>
+            <div class="val-item">
+              <div class="val-icon"><i class="fas fa-star"></i></div>
+              <div>
+                <h4 data-i18n="val2_title">Excellence</h4>
+                <p data-i18n="val2_desc">Qualité irréprochable à chaque mission, avec un soin particulier du détail.</p>
+              </div>
+            </div>
+            <div class="val-item">
+              <div class="val-icon"><i class="fas fa-handshake"></i></div>
+              <div>
+                <h4 data-i18n="val3_title">Proximité</h4>
+                <p data-i18n="val3_desc">Un interlocuteur dédié, disponible et réactif pour chaque client.</p>
+              </div>
+            </div>
+          </div>
+          <a href="#contact" class="btn btn-primary">
+            <span data-i18n="about_cta">Parler à un expert</span> <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ PROCESS ══════════ -->
+  <section id="process" class="section">
+    <div class="container">
+      <div class="sh reveal">
+        <div class="tag"><i class="fas fa-route"></i> <span data-i18n="sec_process_tag">Notre approche</span></div>
+        <h2 class="h-lg" data-i18n="sec_process_h2">Comment nous travaillons</h2>
+        <p class="lead" data-i18n="sec_process_lead">Un processus clair, transparent et centré sur vos résultats.</p>
+      </div>
+      <div class="process-grid">
+        <div class="process-card reveal" style="transition-delay:.05s">
+          <div class="process-num">01</div>
+          <h4 data-i18n="proc1_title">Premier contact</h4>
+          <p data-i18n="proc1_desc">Échange gratuit pour comprendre vos besoins, votre secteur et vos enjeux actuels.</p>
+        </div>
+        <div class="process-card reveal" style="transition-delay:.1s">
+          <div class="process-num">02</div>
+          <h4 data-i18n="proc2_title">Proposition sur mesure</h4>
+          <p data-i18n="proc2_desc">Offre personnalisée avec périmètre de mission, calendrier et honoraires transparents.</p>
+        </div>
+        <div class="process-card reveal" style="transition-delay:.15s">
+          <div class="process-num">03</div>
+          <h4 data-i18n="proc3_title">Exécution & Suivi</h4>
+          <p data-i18n="proc3_desc">Réalisation rigoureuse avec reporting régulier et accès à votre espace client dédié.</p>
+        </div>
+        <div class="process-card reveal" style="transition-delay:.2s">
+          <div class="process-num">04</div>
+          <h4 data-i18n="proc4_title">Rapport & Recommandations</h4>
+          <p data-i18n="proc4_desc">Livraison des travaux avec analyse et conseils pour optimiser votre situation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ TESTIMONIALS ══════════ -->
+  <section id="testimonials" class="section testimonials-section">
+    <div class="container">
+      <div class="sh reveal">
+        <div class="tag"><i class="fas fa-quote-right"></i> <span data-i18n="sec_testi_tag">Témoignages</span></div>
+        <h2 class="h-lg" data-i18n="sec_testi_h2">Ce que disent nos clients</h2>
+        <p class="lead" data-i18n="sec_testi_lead">Des entreprises de toutes tailles nous font confiance pour leur comptabilité et leur gestion fiscale.</p>
+      </div>
+
+      <div class="swiper testi-swiper reveal">
+        <div class="swiper-wrapper">
+
+          <div class="swiper-slide">
+            <div class="testi-card">
+              <div class="testi-stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+              </div>
+              <p class="testi-quote" data-i18n="testi1_quote">ABE Consulting a complètement transformé notre gestion comptable. Leur maîtrise du SYSCOHADA révisé et des obligations fiscales camerounaises est remarquable. Un service vraiment professionnel.</p>
+              <div class="testi-author">
+                <div class="testi-avatar av-g">JM</div>
+                <div class="testi-author-info">
+                  <strong data-i18n="testi1_name">Jean-Baptiste MFOU</strong>
+                  <span data-i18n="testi1_role">Directeur Commercial – ABC Négoce SARL, Douala</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="testi-card">
+              <div class="testi-stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+              </div>
+              <p class="testi-quote" data-i18n="testi2_quote">Leur expertise fiscale nous a permis d'économiser considérablement lors du contrôle DGI. ABE Consulting connaît parfaitement la réglementation et sait défendre ses clients. Je recommande vivement.</p>
+              <div class="testi-author">
+                <div class="testi-avatar av-o">MC</div>
+                <div class="testi-author-info">
+                  <strong data-i18n="testi2_name">Marie-Claire NZENGUE</strong>
+                  <span data-i18n="testi2_role">DG – Import-Export Nzengue SARL, Akwa</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="testi-card">
+              <div class="testi-stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+              </div>
+              <p class="testi-quote" data-i18n="testi3_quote">Partenaire de confiance depuis 2 ans. Disponibilité remarquable, réactivité et professionnalisme à toute épreuve. Nos comptes sont irréprochables et nous pouvons dormir tranquilles.</p>
+              <div class="testi-author">
+                <div class="testi-avatar av-m">PK</div>
+                <div class="testi-author-info">
+                  <strong data-i18n="testi3_name">Paul KAMGA</strong>
+                  <span data-i18n="testi3_role">PDG – Groupe Kamga Holding, Douala</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="testi-card">
+              <div class="testi-stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+              </div>
+              <p class="testi-quote" data-i18n="testi4_quote">La formation sur le SYSCOHADA organisée par ABE Consulting pour notre équipe a été excellente — très pratique et adaptée à notre réalité. Nos comptables ont fait des progrès spectaculaires.</p>
+              <div class="testi-author">
+                <div class="testi-avatar av-b">SM</div>
+                <div class="testi-author-info">
+                  <strong data-i18n="testi4_name">Sandrine MBATA</strong>
+                  <span data-i18n="testi4_role">Fondatrice – StartupCM Technologies, Bonanjo</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ FAQ ══════════ -->
+  <section id="faq" class="section">
+    <div class="container">
+      <div class="sh reveal">
+        <div class="tag"><i class="fas fa-question-circle"></i> <span data-i18n="sec_faq_tag">FAQ</span></div>
+        <h2 class="h-lg" data-i18n="sec_faq_h2">Questions fréquentes</h2>
+        <p class="lead" data-i18n="sec_faq_lead">Vous avez des questions ? Voici les réponses aux interrogations les plus courantes de nos clients.</p>
+      </div>
+
+      <div class="faq-grid reveal">
+
+        <div class="faq-item" id="faq1">
+          <button class="faq-btn" onclick="toggleFaq('faq1')">
+            <span data-i18n="faq1_q">Comment se passe la première consultation ?</span>
+            <i class="fas fa-plus"></i>
+          </button>
+          <div class="faq-body" data-i18n="faq1_a">
+            Un premier entretien de diagnostic (gratuit, sans engagement) est proposé pour comprendre votre activité, vos besoins et vos enjeux actuels. Cet échange peut avoir lieu en présentiel à notre bureau à Akwa ou par téléphone/visio.
+          </div>
+        </div>
+
+        <div class="faq-item" id="faq2">
+          <button class="faq-btn" onclick="toggleFaq('faq2')">
+            <span data-i18n="faq2_q">Quels sont vos tarifs et comment sont-ils calculés ?</span>
+            <i class="fas fa-plus"></i>
+          </button>
+          <div class="faq-body" data-i18n="faq2_a">
+            Nos honoraires sont adaptés à la taille de votre entreprise, à la nature et à la complexité des missions. Nous proposons des forfaits mensuels pour la tenue comptable et des devis sur mesure pour les missions d'audit, de fiscalité et de conseil.
+          </div>
+        </div>
+
+        <div class="faq-item" id="faq3">
+          <button class="faq-btn" onclick="toggleFaq('faq3')">
+            <span data-i18n="faq3_q">Intervenez-vous uniquement à Douala ?</span>
+            <i class="fas fa-plus"></i>
+          </button>
+          <div class="faq-body" data-i18n="faq3_a">
+            Notre siège est à Akwa, Douala, mais nous accompagnons des clients dans tout le Cameroun. Pour les clients en dehors de Douala, nous travaillons à distance grâce à notre espace client sécurisé et nous nous déplaçons si nécessaire.
+          </div>
+        </div>
+
+        <div class="faq-item" id="faq4">
+          <button class="faq-btn" onclick="toggleFaq('faq4')">
+            <span data-i18n="faq4_q">Comment garantissez-vous la confidentialité de mes données ?</span>
+            <i class="fas fa-plus"></i>
+          </button>
+          <div class="faq-body" data-i18n="faq4_a">
+            Nous respectons strictement les règles de confidentialité professionnelle. Toutes vos données financières et stratégiques sont traitées avec la plus grande discrétion, ne sont jamais partagées avec des tiers, et sont stockées de manière sécurisée.
+          </div>
+        </div>
+
+        <div class="faq-item" id="faq6">
+          <button class="faq-btn" onclick="toggleFaq('faq6')">
+            <span data-i18n="faq6_q">Proposez-vous un espace client en ligne ?</span>
+            <i class="fas fa-plus"></i>
+          </button>
+          <div class="faq-body" data-i18n="faq6_a">
+            Oui ! Nos clients disposent d'un espace client sécurisé pour accéder à leurs documents (bilans, déclarations, rapports), suivre l'avancement de leurs missions et communiquer directement avec leur conseiller. Accédez-y via le bouton "Espace client" en haut de page.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ CTA BANNER ══════════ -->
+  <section class="cta-banner">
+    <div class="container cta-inner">
+      <div class="tag light" style="margin:0 auto 20px;"><i class="fas fa-rocket"></i> <span data-i18n="cta_tag">Passez à l'action</span></div>
+      <h2 data-i18n-html="cta_h2">Prêt à transformer la gestion<br />de votre entreprise ?</h2>
+      <p data-i18n="cta_p">Rejoignez plus de 150 entreprises qui font confiance à ABE Consulting pour leur comptabilité, leur audit et leur fiscalité.</p>
+      <div class="cta-actions">
+        <a href="#contact" class="btn btn-primary btn-lg">
+          <i class="fas fa-paper-plane"></i> <span data-i18n="cta_btn1">Demander un devis gratuit</span>
+        </a>
+        <a href="tel:+237670365978" class="btn btn-ghost btn-lg">
+          <i class="fas fa-phone"></i> +237 670 365 978
+        </a>
+      </div>
+      <div class="cta-trust">
+        <div class="cta-trust-item"><i class="fas fa-shield-check"></i> <span data-i18n="cta_trust1">Certifiés & conformes DGI</span></div>
+        <div class="cta-trust-item"><i class="fas fa-lock"></i> <span data-i18n="cta_trust2">Données 100% confidentielles</span></div>
+        <div class="cta-trust-item"><i class="fas fa-clock"></i> <span data-i18n="cta_trust3">Réponse sous 24h</span></div>
+        <div class="cta-trust-item"><i class="fas fa-map-marker-alt"></i> <span data-i18n="cta_trust4">Basés à Akwa, Douala</span></div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- ══════════ CONTACT ══════════ -->
+  <section id="contact" class="section">
+    <div class="container">
+      <div class="sh reveal">
+        <div class="tag orange"><i class="fas fa-envelope"></i> <span data-i18n="sec_contact_tag">Parlons de votre projet</span></div>
+        <h2 class="h-lg" data-i18n="sec_contact_h2">Contactez-nous</h2>
+        <p class="lead" data-i18n="sec_contact_lead">Nous répondons à toutes les demandes sous 24 heures ouvrées. Consultation initiale gratuite.</p>
+      </div>
+
+      <div class="contact-grid">
+
+        <div class="contact-info reveal-l">
+          <div class="contact-info-head">
+            <h3 data-i18n="contact_title">Nos coordonnées</h3>
+            <p data-i18n="contact_sub">Disponibles du lundi au vendredi de 8h à 18h et le samedi matin.</p>
+          </div>
+          <div class="contact-items">
+            <div class="contact-item">
+              <div class="ci-icon"><i class="fas fa-map-marker-alt"></i></div>
+              <div class="ci-text">
+                <strong data-i18n="ci_address_label">Adresse</strong>
+                <span>Akwa, Douala – Cameroun<br />BP 15609 Douala</span>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="ci-icon"><i class="fas fa-phone-alt"></i></div>
+              <div class="ci-text">
+                <strong data-i18n="ci_phone_label">Téléphone</strong>
+                <a href="tel:+237670365978">+237 670 365 978</a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="ci-icon"><i class="fas fa-envelope"></i></div>
+              <div class="ci-text">
+                <strong data-i18n="ci_email_label">Email</strong>
+                <a href="mailto:abeconsultingsarl@yahoo.com">abeconsultingsarl@yahoo.com</a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="ci-icon"><i class="fas fa-clock"></i></div>
+              <div class="ci-text">
+                <strong data-i18n="ci_hours_label">Heures d'ouverture</strong>
+                <span data-i18n-html="ci_hours_val">Lun – Ven : 8h00 – 18h00<br />Samedi : 9h00 – 13h00</span>
+              </div>
+            </div>
+          </div>
+          <div class="contact-socials">
+            <a href="https://wa.me/237670365978" class="soc-btn soc-wa" target="_blank" rel="noopener">
+              <i class="fab fa-whatsapp"></i> <span data-i18n="soc_wa">WhatsApp</span>
+            </a>
+            <a href="mailto:abeconsultingsarl@yahoo.com" class="soc-btn soc-em">
+              <i class="fas fa-envelope"></i> <span data-i18n="soc_em">Email direct</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="reveal-r">
+          <div class="form-card">
+            <h3 data-i18n="form_title">Envoyer un message</h3>
+            <p data-i18n="form_sub">Décrivez votre besoin et nous vous recontactons rapidement.</p>
+            <form id="contactForm" novalidate>
+              <div class="f-row">
+                <div class="f-grp">
+                  <label for="c-name" data-i18n="form_name">Nom complet *</label>
+                  <input type="text" id="c-name" data-i18n-placeholder="ph_name" placeholder="Jean Dupont" required />
+                </div>
+                <div class="f-grp">
+                  <label for="c-company" data-i18n="form_company">Entreprise</label>
+                  <input type="text" id="c-company" data-i18n-placeholder="ph_company" placeholder="Ma Société SARL" />
+                </div>
+              </div>
+              <div class="f-row">
+                <div class="f-grp">
+                  <label for="c-email" data-i18n="form_email">Email *</label>
+                  <input type="email" id="c-email" data-i18n-placeholder="ph_email" placeholder="vous@exemple.com" required />
+                </div>
+                <div class="f-grp">
+                  <label for="c-phone" data-i18n="form_phone">Téléphone</label>
+                  <input type="tel" id="c-phone" data-i18n-placeholder="ph_phone" placeholder="+237 6XX XXX XXX" />
+                </div>
+              </div>
+              <div class="f-grp">
+                <label for="c-service" data-i18n="form_service">Service souhaité *</label>
+                <select id="c-service" required>
+                  <option value="" data-i18n="form_service_opt0">— Sélectionnez un service —</option>
+                  <option data-i18n="form_service_opt1">Comptabilité</option>
+                  <option data-i18n="form_service_opt2">Audit & Contrôle</option>
+                  <option data-i18n="form_service_opt3">Fiscalité</option>
+                  <option data-i18n="form_service_opt4">Formation Professionnelle</option>
+                  <option data-i18n="form_service_opt5">Conseil en Gestion</option>
+                  <option data-i18n="form_service_opt6">Commerce & Import-Export</option>
+                  <option data-i18n="form_service_opt7">Plusieurs services</option>
+                </select>
+              </div>
+              <div class="f-grp">
+                <label for="c-msg" data-i18n="form_msg">Votre message *</label>
+                <textarea id="c-msg" rows="5" data-i18n-placeholder="ph_msg" placeholder="Décrivez votre besoin ou votre projet…" required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block" id="submitBtn">
+                <i class="fas fa-paper-plane"></i> <span data-i18n="form_submit">Envoyer le message</span>
+              </button>
+              <p class="f-note"><i class="fas fa-lock"></i> <span data-i18n="form_note">Vos données sont traitées en toute confidentialité.</span></p>
+            </form>
+            <div class="form-success-msg" id="formSuccess" style="display:none">
+              <i class="fas fa-check-circle"></i>
+              <h4 data-i18n="form_success_title">Message envoyé !</h4>
+              <p data-i18n="form_success_p">Merci. Nous vous répondrons dans les 24 heures ouvrées.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ FOOTER ══════════ -->
+  <footer>
+    <div class="footer-main">
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <img src="images/logoABE.png" alt="ABE Consulting" class="footer-logo-img" />
+          <p data-i18n="footer_brand_p">Cabinet pluridisciplinaire dédié à la comptabilité, l'audit, le contrôle et la fiscalité des entreprises au Cameroun.</p>
+          <div class="footer-socials">
+            <a href="https://wa.me/237670365978" class="footer-social-btn" target="_blank" rel="noopener" aria-label="WhatsApp">
+              <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="mailto:abeconsultingsarl@yahoo.com" class="footer-social-btn" aria-label="Email">
+              <i class="fas fa-envelope"></i>
+            </a>
+            <a href="login.html" class="footer-social-btn" aria-label="Espace client">
+              <i class="fas fa-user-circle"></i>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h5 data-i18n="footer_col1_h">Services</h5>
+          <ul>
+            <li><a href="#services">Comptabilité</a></li>
+            <li><a href="#services">Audit & Contrôle</a></li>
+            <li><a href="#services">Fiscalité</a></li>
+            <li><a href="#services">Formation</a></li>
+            <li><a href="#services">Conseil en gestion</a></li>
+            <li><a href="#services">Import-Export</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5 data-i18n="footer_col2_h">Cabinet</h5>
+          <ul>
+            <li><a href="#about" data-i18n="footer_about">À propos</a></li>
+            <li><a href="#process">Notre approche</a></li>
+            <li><a href="#certifications">Conformité légale</a></li>
+            <li><a href="#testimonials">Témoignages</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="login.html">Espace client</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5 data-i18n="footer_col3_h">Contact</h5>
+          <ul class="footer-contact-list">
+            <li>
+              <i class="fas fa-map-marker-alt"></i>
+              <span>Akwa, Douala – Cameroun<br />BP 15609</span>
+            </li>
+            <li>
+              <i class="fas fa-phone-alt"></i>
+              <a href="tel:+237670365978">+237 670 365 978</a>
+            </li>
+            <li>
+              <i class="fas fa-envelope"></i>
+              <a href="mailto:abeconsultingsarl@yahoo.com">abeconsultingsarl@yahoo.com</a>
+            </li>
+            <li>
+              <i class="fas fa-clock"></i>
+              <span>Lun–Ven : 8h–18h<br />Sam : 9h–13h</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p data-i18n="footer_copy">&copy; 2024 ABE Consulting SARL. Tous droits réservés.</p>
+        <p>NIU : M022217153629Y &nbsp;·&nbsp; RCCM : RC/DLBB/2022/B/16/6</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ══════════ COOKIE BANNER ══════════ -->
+  <div class="cookie-banner" id="cookieBanner" style="display:none">
+    <i class="fas fa-cookie-bite"></i>
+    <div class="cookie-text">
+      <p>Nous utilisons des cookies pour améliorer votre expérience. En continuant votre navigation, vous acceptez notre politique de confidentialité. <a href="#">En savoir plus</a>.</p>
+      <div class="cookie-actions">
+        <button class="btn btn-primary" onclick="acceptCookies()">Tout accepter</button>
+        <button class="btn btn-outline-dark" onclick="acceptCookies()">Refuser</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back to top -->
+  <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- ══════════ SCRIPTS ══════════ -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>
