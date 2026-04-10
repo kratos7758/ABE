@@ -9,43 +9,70 @@
   <link rel="stylesheet" href="css/dashboard.css" />
 </head>
 <body>
-<div class="dash-layout">
+
+<div class="dash-layout" id="dashLayout">
+
+  <!-- ═══ SIDEBAR OVERLAY (mobile) ═══ -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
   <!-- ═══ SIDEBAR ═══ -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-logo">
-      <img src="images/logoABE.png" alt="ABE Consulting" />
+      <a href="index.html"><img src="images/logoABE.png" alt="ABE Consulting" /></a>
+      <button class="sidebar-close" onclick="closeSidebar()" aria-label="Fermer"><i class="fas fa-times"></i></button>
     </div>
 
     <nav class="sidebar-nav">
       <div class="nav-group">
         <div class="nav-group-label">Principal</div>
-        <a href="#" class="sidebar-link active"><i class="fas fa-th-large"></i> Tableau de bord</a>
-        <a href="#" class="sidebar-link"><i class="fas fa-folder-open"></i> Mes documents <span class="badge">3</span></a>
-        <a href="#" class="sidebar-link"><i class="fas fa-calendar-alt"></i> Échéances fiscales</a>
-        <a href="#" class="sidebar-link"><i class="fas fa-comments"></i> Messages <span class="badge">2</span></a>
+        <a href="#" class="sidebar-link active" data-view="dashboard" onclick="switchView('dashboard',this)">
+          <i class="fas fa-th-large"></i> Tableau de bord
+        </a>
+        <a href="#" class="sidebar-link" data-view="documents" onclick="switchView('documents',this)">
+          <i class="fas fa-folder-open"></i> Mes documents <span class="badge">3</span>
+        </a>
+        <a href="#" class="sidebar-link" data-view="calendar" onclick="switchView('calendar',this)">
+          <i class="fas fa-calendar-alt"></i> Échéances fiscales
+        </a>
+        <a href="#" class="sidebar-link" data-view="messages" onclick="switchView('messages',this)">
+          <i class="fas fa-comments"></i> Messages <span class="badge">2</span>
+        </a>
       </div>
       <div class="nav-group">
         <div class="nav-group-label">Services</div>
-        <a href="#" class="sidebar-link"><i class="fas fa-calculator"></i> Comptabilité</a>
-        <a href="#" class="sidebar-link"><i class="fas fa-search-dollar"></i> Audit & Contrôle</a>
-        <a href="#" class="sidebar-link"><i class="fas fa-file-invoice-dollar"></i> Fiscalité</a>
-        <a href="#" class="sidebar-link"><i class="fas fa-chart-line"></i> Rapports</a>
+        <a href="services/comptabilite.html" class="sidebar-link">
+          <i class="fas fa-calculator"></i> Comptabilité
+        </a>
+        <a href="services/audit.html" class="sidebar-link">
+          <i class="fas fa-search-dollar"></i> Audit & Contrôle
+        </a>
+        <a href="services/fiscalite.html" class="sidebar-link">
+          <i class="fas fa-file-invoice-dollar"></i> Fiscalité
+        </a>
+        <a href="#" class="sidebar-link" data-view="reports" onclick="switchView('reports',this)">
+          <i class="fas fa-chart-bar"></i> Rapports
+        </a>
       </div>
       <div class="nav-group">
         <div class="nav-group-label">Compte</div>
-        <a href="#" class="sidebar-link"><i class="fas fa-user-cog"></i> Mon profil</a>
-        <a href="#" class="sidebar-link"><i class="fas fa-bell"></i> Notifications</a>
-        <a href="#" class="sidebar-link"><i class="fas fa-question-circle"></i> Aide & Support</a>
+        <a href="#" class="sidebar-link" data-view="profile" onclick="switchView('profile',this)">
+          <i class="fas fa-user-cog"></i> Mon profil
+        </a>
+        <a href="#" class="sidebar-link" data-view="notifications" onclick="switchView('notifications',this)">
+          <i class="fas fa-bell"></i> Notifications <span class="badge badge-notif">5</span>
+        </a>
+        <a href="#" class="sidebar-link" data-view="support" onclick="switchView('support',this)">
+          <i class="fas fa-question-circle"></i> Aide & Support
+        </a>
       </div>
     </nav>
 
     <div class="sidebar-bottom">
-      <div class="sidebar-user" id="sidebarUser">
+      <div class="sidebar-user" onclick="switchView('profile', document.querySelector('[data-view=profile]'))">
         <div class="user-avatar" id="sidebarAvatar">CT</div>
         <div class="user-info">
           <strong id="sidebarName">Charly TEMGOUA</strong>
-          <span>Client Premium</span>
+          <span id="sidebarRole">Client Premium</span>
         </div>
         <i class="fas fa-ellipsis-v"></i>
       </div>
@@ -57,43 +84,67 @@
 
     <!-- Top Bar -->
     <div class="dash-topbar">
+      <button class="sidebar-toggle-btn" onclick="openSidebar()" aria-label="Menu">
+        <i class="fas fa-bars"></i>
+      </button>
       <div class="topbar-search">
         <i class="fas fa-search"></i>
-        <input type="text" placeholder="Rechercher un document, une mission…" />
+        <input type="text" placeholder="Rechercher un document, une mission…" id="searchInput" oninput="handleSearch(this.value)" />
       </div>
       <div class="topbar-right">
-        <button class="topbar-icon-btn" title="Notifications">
+        <button class="topbar-icon-btn" title="Notifications" onclick="switchView('notifications', document.querySelector('[data-view=notifications]'))" style="position:relative">
           <i class="fas fa-bell"></i>
           <span class="topbar-notif-dot"></span>
         </button>
-        <button class="topbar-icon-btn" title="Aide">
+        <button class="topbar-icon-btn" title="Aide" onclick="switchView('support', document.querySelector('[data-view=support]'))">
           <i class="fas fa-question-circle"></i>
         </button>
-        <div class="topbar-user" id="topbarUser">
+        <div class="topbar-user" id="topbarUser" onclick="toggleUserMenu()">
           <div class="topbar-avatar" id="topbarAvatar">CT</div>
           <span id="topbarName">Charly T.</span>
-          <i class="fas fa-chevron-down"></i>
+          <i class="fas fa-chevron-down" id="topbarChevron"></i>
         </div>
-        <button class="btn btn-o btn-sm" onclick="logout()">
-          <i class="fas fa-sign-out-alt"></i> Déconnexion
-        </button>
+        <!-- User dropdown -->
+        <div class="user-dropdown" id="userDropdown">
+          <div class="ud-header">
+            <div class="topbar-avatar" id="udAvatar">CT</div>
+            <div>
+              <strong id="udName">Charly TEMGOUA</strong>
+              <span id="udEmail">demo@abeconsulting.cm</span>
+            </div>
+          </div>
+          <div class="ud-divider"></div>
+          <a href="#" class="ud-item" onclick="switchView('profile', document.querySelector('[data-view=profile]'));closeUserMenu()">
+            <i class="fas fa-user-cog"></i> Mon profil
+          </a>
+          <a href="#" class="ud-item" onclick="switchView('notifications', document.querySelector('[data-view=notifications]'));closeUserMenu()">
+            <i class="fas fa-bell"></i> Notifications
+          </a>
+          <div class="ud-divider"></div>
+          <a href="index.html" class="ud-item">
+            <i class="fas fa-home"></i> Retour au site
+          </a>
+          <a href="#" class="ud-item ud-logout" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i> Déconnexion
+          </a>
+        </div>
       </div>
     </div>
 
-    <!-- Body -->
-    <div class="dash-body">
+    <!-- ════════════ VIEWS ════════════ -->
 
-      <!-- Welcome -->
+    <!-- VIEW: Dashboard -->
+    <div class="dash-body view active" id="view-dashboard">
       <div class="welcome-bar">
         <div class="welcome-text">
           <h1>Bonjour, <span id="welcomeName">Charly</span> 👋</h1>
-          <p id="welcomeDate">Chargement de la date…</p>
+          <p id="welcomeDate">Chargement…</p>
         </div>
         <div class="welcome-actions">
-          <button class="btn btn-o btn-sm" onclick="showToast('Fonctionnalité bientôt disponible')">
+          <button class="btn btn-o btn-sm" onclick="showToast('Export en cours de préparation…')">
             <i class="fas fa-download"></i> Exporter
           </button>
-          <button class="btn btn-p btn-sm">
+          <button class="btn btn-p btn-sm" onclick="switchView('messages', document.querySelector('[data-view=messages]'))">
             <i class="fas fa-plus"></i> Nouvelle demande
           </button>
         </div>
@@ -101,18 +152,18 @@
 
       <!-- KPI Cards -->
       <div class="kpi-grid">
-        <div class="kpi-card">
+        <div class="kpi-card" onclick="switchView('documents', document.querySelector('[data-view=documents]'))" style="cursor:pointer">
           <div class="kpi-top">
             <div class="kpi-icon ki-g"><i class="fas fa-folder-open"></i></div>
-            <div class="kpi-trend up"><i class="fas fa-arrow-up"></i> +2</div>
+            <div class="kpi-trend up"><i class="fas fa-arrow-up"></i> +2 nouveaux</div>
           </div>
           <div class="kpi-num">12</div>
           <div class="kpi-label">Documents disponibles</div>
         </div>
-        <div class="kpi-card">
+        <div class="kpi-card" onclick="switchView('calendar', document.querySelector('[data-view=calendar]'))" style="cursor:pointer">
           <div class="kpi-top">
             <div class="kpi-icon ki-o"><i class="fas fa-calendar-exclamation"></i></div>
-            <div class="kpi-trend up"><i class="fas fa-exclamation"></i> Urgent</div>
+            <div class="kpi-trend orange"><i class="fas fa-exclamation-triangle"></i> Urgent</div>
           </div>
           <div class="kpi-num">3</div>
           <div class="kpi-label">Échéances à venir</div>
@@ -120,15 +171,15 @@
         <div class="kpi-card">
           <div class="kpi-top">
             <div class="kpi-icon ki-b"><i class="fas fa-tasks"></i></div>
-            <div class="kpi-trend up"><i class="fas fa-circle-check"></i> En cours</div>
+            <div class="kpi-trend blue"><i class="fas fa-sync"></i> En cours</div>
           </div>
           <div class="kpi-num">2</div>
           <div class="kpi-label">Missions actives</div>
         </div>
-        <div class="kpi-card">
+        <div class="kpi-card" onclick="switchView('messages', document.querySelector('[data-view=messages]'))" style="cursor:pointer">
           <div class="kpi-top">
             <div class="kpi-icon ki-p"><i class="fas fa-comments"></i></div>
-            <div class="kpi-trend up"><i class="fas fa-dot-circle"></i> Nouveau</div>
+            <div class="kpi-trend purple"><i class="fas fa-circle"></i> Non lus</div>
           </div>
           <div class="kpi-num">2</div>
           <div class="kpi-label">Messages non lus</div>
@@ -137,82 +188,37 @@
 
       <!-- Content Grid -->
       <div class="content-grid">
-
-        <!-- Documents table -->
+        <!-- Documents récents -->
         <div class="dash-card">
           <div class="card-head">
-            <h3><i class="fas fa-folder" style="color:var(--c-green);margin-right:8px"></i>Mes derniers documents</h3>
-            <button class="btn btn-o btn-xs">Voir tout</button>
+            <h3><i class="fas fa-folder" style="color:var(--c-green)"></i> Derniers documents</h3>
+            <button class="btn btn-o btn-xs" onclick="switchView('documents', document.querySelector('[data-view=documents]'))">Voir tout</button>
           </div>
           <div class="card-body">
             <table class="docs-table">
-              <thead>
-                <tr>
-                  <th>Document</th>
-                  <th>Date</th>
-                  <th>Exercice</th>
-                  <th>Statut</th>
-                  <th></th>
-                </tr>
-              </thead>
+              <thead><tr><th>Document</th><th>Date</th><th>Statut</th><th></th></tr></thead>
               <tbody>
                 <tr>
-                  <td>
-                    <div class="doc-name">
-                      <div class="doc-icon di-pdf"><i class="fas fa-file-pdf"></i></div>
-                      <div>
-                        <strong>Bilan 2023</strong>
-                        <small>États financiers annuels</small>
-                      </div>
-                    </div>
-                  </td>
+                  <td><div class="doc-name"><div class="doc-icon di-pdf"><i class="fas fa-file-pdf"></i></div><div><strong>Bilan 2023</strong><small>États financiers annuels</small></div></div></td>
                   <td>28/03/2024</td>
-                  <td>2023</td>
                   <td><span class="status-pill sp-ok">Certifié</span></td>
                   <td><button class="btn btn-o btn-xs" onclick="showToast('Téléchargement en cours…')"><i class="fas fa-download"></i></button></td>
                 </tr>
                 <tr>
-                  <td>
-                    <div class="doc-name">
-                      <div class="doc-icon di-xls"><i class="fas fa-file-excel"></i></div>
-                      <div>
-                        <strong>Déclaration TVA – T4 2023</strong>
-                        <small>Déclaration trimestrielle</small>
-                      </div>
-                    </div>
-                  </td>
+                  <td><div class="doc-name"><div class="doc-icon di-xls"><i class="fas fa-file-excel"></i></div><div><strong>Déclaration TVA – T4 2023</strong><small>Déclaration trimestrielle</small></div></div></td>
                   <td>15/01/2024</td>
-                  <td>2023</td>
                   <td><span class="status-pill sp-ok">Déposée</span></td>
                   <td><button class="btn btn-o btn-xs" onclick="showToast('Téléchargement en cours…')"><i class="fas fa-download"></i></button></td>
                 </tr>
                 <tr>
-                  <td>
-                    <div class="doc-name">
-                      <div class="doc-icon di-pdf"><i class="fas fa-file-pdf"></i></div>
-                      <div>
-                        <strong>Rapport d'audit interne</strong>
-                        <small>Mission de contrôle 2023</small>
-                      </div>
-                    </div>
-                  </td>
+                  <td><div class="doc-name"><div class="doc-icon di-pdf"><i class="fas fa-file-pdf"></i></div><div><strong>Rapport d'audit interne</strong><small>Mission de contrôle 2023</small></div></div></td>
                   <td>10/03/2024</td>
-                  <td>2023</td>
                   <td><span class="status-pill sp-new">Nouveau</span></td>
                   <td><button class="btn btn-o btn-xs" onclick="showToast('Téléchargement en cours…')"><i class="fas fa-download"></i></button></td>
                 </tr>
                 <tr>
-                  <td>
-                    <div class="doc-name">
-                      <div class="doc-icon di-word"><i class="fas fa-file-word"></i></div>
-                      <div>
-                        <strong>Note fiscale – IS 2023</strong>
-                        <small>Analyse impôt sur les sociétés</small>
-                      </div>
-                    </div>
-                  </td>
+                  <td><div class="doc-name"><div class="doc-icon di-word"><i class="fas fa-file-word"></i></div><div><strong>Note fiscale – IS 2023</strong><small>Analyse impôt sur les sociétés</small></div></div></td>
                   <td>05/04/2024</td>
-                  <td>2023</td>
                   <td><span class="status-pill sp-pend">En attente</span></td>
                   <td><button class="btn btn-o btn-xs" onclick="showToast('Téléchargement en cours…')"><i class="fas fa-download"></i></button></td>
                 </tr>
@@ -221,173 +227,904 @@
           </div>
         </div>
 
-        <!-- Deadlines -->
+        <!-- Échéances -->
         <div class="dash-card">
           <div class="card-head">
-            <h3><i class="fas fa-calendar-alt" style="color:var(--c-orange);margin-right:8px"></i>Échéances fiscales</h3>
-            <button class="btn btn-o btn-xs">Calendrier</button>
+            <h3><i class="fas fa-calendar-alt" style="color:var(--c-orange)"></i> Échéances fiscales</h3>
+            <button class="btn btn-o btn-xs" onclick="switchView('calendar', document.querySelector('[data-view=calendar]'))">Calendrier</button>
           </div>
           <div class="card-body">
             <div class="deadline-list">
               <div class="deadline-item urgent">
                 <div class="dl-date"><strong>15</strong><span>Avr</span></div>
-                <div class="dl-info">
-                  <strong>Déclaration TVA T1 2024</strong>
-                  <span>Direction Générale des Impôts</span>
-                </div>
+                <div class="dl-info"><strong>Déclaration TVA T1 2024</strong><span>Direction Générale des Impôts</span></div>
                 <span class="dl-badge dlb-u">Urgent</span>
               </div>
               <div class="deadline-item">
                 <div class="dl-date"><strong>30</strong><span>Avr</span></div>
-                <div class="dl-info">
-                  <strong>Paiement IS – Acompte</strong>
-                  <span>Impôt sur les sociétés</span>
-                </div>
+                <div class="dl-info"><strong>Paiement IS – Acompte</strong><span>Impôt sur les sociétés</span></div>
                 <span class="dl-badge dlb-n">Normal</span>
               </div>
               <div class="deadline-item">
                 <div class="dl-date"><strong>15</strong><span>Mai</span></div>
-                <div class="dl-info">
-                  <strong>DIPE mensuelle – Avril</strong>
-                  <span>Déclaration préalable emploi</span>
-                </div>
+                <div class="dl-info"><strong>DIPE mensuelle – Avril</strong><span>Déclaration préalable emploi</span></div>
                 <span class="dl-badge dlb-n">Normal</span>
               </div>
               <div class="deadline-item">
                 <div class="dl-date"><strong>30</strong><span>Jun</span></div>
-                <div class="dl-info">
-                  <strong>Liasse fiscale 2023</strong>
-                  <span>Dépôt bilan DGI</span>
-                </div>
+                <div class="dl-info"><strong>Liasse fiscale 2023</strong><span>Dépôt bilan DGI</span></div>
                 <span class="dl-badge dlb-n">Normal</span>
               </div>
             </div>
           </div>
         </div>
-
       </div>
 
       <!-- Activity + Messages -->
       <div class="content-grid">
-
-        <!-- Activity -->
         <div class="dash-card">
           <div class="card-head">
-            <h3><i class="fas fa-history" style="color:var(--c-green);margin-right:8px"></i>Activité récente</h3>
+            <h3><i class="fas fa-history" style="color:var(--c-green)"></i> Activité récente</h3>
           </div>
           <div class="card-body">
             <div class="activity-list">
               <div class="activity-item">
                 <div class="act-dot ad-g"><i class="fas fa-upload"></i></div>
-                <div class="act-text">
-                  <strong>Bilan 2023 mis en ligne</strong>
-                  <span>Il y a 2 jours · par ABE Consulting</span>
-                </div>
+                <div class="act-text"><strong>Bilan 2023 mis en ligne</strong><span>Il y a 2 jours · par ABE Consulting</span></div>
               </div>
               <div class="activity-item">
                 <div class="act-dot ad-o"><i class="fas fa-file-invoice-dollar"></i></div>
-                <div class="act-text">
-                  <strong>Déclaration TVA T1 préparée</strong>
-                  <span>Il y a 3 jours · en attente de signature</span>
-                </div>
+                <div class="act-text"><strong>Déclaration TVA T1 préparée</strong><span>Il y a 3 jours · en attente de signature</span></div>
               </div>
               <div class="activity-item">
                 <div class="act-dot ad-b"><i class="fas fa-comments"></i></div>
-                <div class="act-text">
-                  <strong>Nouveau message de votre conseiller</strong>
-                  <span>Il y a 5 jours · Charly TEMGOUA</span>
-                </div>
+                <div class="act-text"><strong>Nouveau message de votre conseiller</strong><span>Il y a 5 jours · Charly TEMGOUA</span></div>
               </div>
               <div class="activity-item">
                 <div class="act-dot ad-g"><i class="fas fa-check-circle"></i></div>
-                <div class="act-text">
-                  <strong>Mission audit interne clôturée</strong>
-                  <span>Il y a 1 semaine · Rapport disponible</span>
-                </div>
+                <div class="act-text"><strong>Mission audit interne clôturée</strong><span>Il y a 1 semaine · Rapport disponible</span></div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Messages -->
-        <div class="dash-card messages-section">
+        <div class="dash-card">
           <div class="card-head">
-            <h3><i class="fas fa-comments" style="color:var(--c-orange);margin-right:8px"></i>Messages</h3>
-            <span style="font-size:.75rem;background:var(--c-orange);color:#fff;padding:3px 9px;border-radius:99px;font-weight:700;">2 non lus</span>
+            <h3><i class="fas fa-comments" style="color:var(--c-orange)"></i> Messages récents</h3>
+            <button class="btn btn-o btn-xs" onclick="switchView('messages', document.querySelector('[data-view=messages]'))">Voir tout</button>
           </div>
           <div class="card-body">
             <div class="activity-list">
-              <div class="activity-item" style="background:var(--c-green-l);border-radius:10px;margin:8px 8px 0;">
-                <div class="act-dot ad-g"><i class="fas fa-user"></i></div>
+              <div class="activity-item msg-unread" onclick="switchView('messages', document.querySelector('[data-view=messages]'))" style="cursor:pointer">
+                <div class="act-dot ad-g"><i class="fas fa-user-tie"></i></div>
                 <div class="act-text">
                   <strong>Charly TEMGOUA (Conseiller)</strong>
-                  <span>"Votre bilan 2023 est prêt. Merci de le consulter dans vos documents et de valider..."</span>
-                  <span style="font-size:.7rem;color:var(--c-400);margin-top:4px;display:block;">Hier à 14:32 · Non lu</span>
+                  <span>"Votre bilan 2023 est prêt. Merci de le consulter dans vos documents…"</span>
+                  <small class="msg-time">Hier à 14:32 <span class="unread-dot"></span></small>
                 </div>
               </div>
-              <div class="activity-item" style="background:var(--c-orange-l);border-radius:10px;margin:8px;">
+              <div class="activity-item msg-unread" onclick="switchView('messages', document.querySelector('[data-view=messages]'))" style="cursor:pointer">
                 <div class="act-dot ad-o"><i class="fas fa-bell"></i></div>
                 <div class="act-text">
                   <strong>Rappel automatique</strong>
-                  <span>"Votre déclaration TVA T1 est due le 15 avril. Nous avons préparé les documents..."</span>
-                  <span style="font-size:.7rem;color:var(--c-400);margin-top:4px;display:block;">Il y a 2 jours · Non lu</span>
+                  <span>"Votre déclaration TVA T1 est due le 15 avril…"</span>
+                  <small class="msg-time">Il y a 2 jours <span class="unread-dot"></span></small>
                 </div>
               </div>
             </div>
           </div>
           <div class="msg-compose-area">
-            <textarea placeholder="Envoyer un message à votre conseiller…" rows="2"></textarea>
-            <button class="btn btn-g btn-sm" onclick="showToast('Message envoyé à votre conseiller !')">
-              <i class="fas fa-paper-plane"></i>
-            </button>
+            <textarea placeholder="Message rapide à votre conseiller…" rows="2" id="quickMsg"></textarea>
+            <button class="btn btn-g btn-sm" onclick="sendQuickMsg()"><i class="fas fa-paper-plane"></i></button>
+          </div>
+        </div>
+      </div>
+    </div><!-- /view-dashboard -->
+
+    <!-- VIEW: Documents -->
+    <div class="dash-body view" id="view-documents">
+      <div class="view-header">
+        <div>
+          <h2 class="view-title"><i class="fas fa-folder-open"></i> Mes documents</h2>
+          <p class="view-subtitle">Tous vos documents comptables, fiscaux et rapports</p>
+        </div>
+        <div class="welcome-actions">
+          <button class="btn btn-o btn-sm" onclick="showToast('Filtre appliqué')"><i class="fas fa-filter"></i> Filtrer</button>
+          <button class="btn btn-p btn-sm" onclick="showToast('Demande de document envoyée')"><i class="fas fa-plus"></i> Demander un document</button>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="doc-filters">
+        <button class="doc-filter-btn active" onclick="filterDocs('all',this)">Tous (12)</button>
+        <button class="doc-filter-btn" onclick="filterDocs('comptabilite',this)">Comptabilité (4)</button>
+        <button class="doc-filter-btn" onclick="filterDocs('fiscal',this)">Fiscalité (5)</button>
+        <button class="doc-filter-btn" onclick="filterDocs('audit',this)">Audit (2)</button>
+        <button class="doc-filter-btn" onclick="filterDocs('autre',this)">Autres (1)</button>
+      </div>
+
+      <div class="dash-card">
+        <div class="card-body">
+          <table class="docs-table">
+            <thead>
+              <tr><th>Document</th><th>Catégorie</th><th>Date</th><th>Exercice</th><th>Taille</th><th>Statut</th><th>Action</th></tr>
+            </thead>
+            <tbody id="docsTableBody">
+              <tr data-cat="comptabilite">
+                <td><div class="doc-name"><div class="doc-icon di-pdf"><i class="fas fa-file-pdf"></i></div><div><strong>Bilan 2023</strong><small>États financiers annuels</small></div></div></td>
+                <td><span class="cat-badge cat-compta">Comptabilité</span></td>
+                <td>28/03/2024</td><td>2023</td><td>2.4 MB</td>
+                <td><span class="status-pill sp-ok">Certifié</span></td>
+                <td class="doc-actions">
+                  <button class="btn-icon" title="Télécharger" onclick="showToast('Téléchargement : Bilan 2023')"><i class="fas fa-download"></i></button>
+                  <button class="btn-icon" title="Aperçu" onclick="showPreview('Bilan 2023')"><i class="fas fa-eye"></i></button>
+                </td>
+              </tr>
+              <tr data-cat="comptabilite">
+                <td><div class="doc-name"><div class="doc-icon di-xls"><i class="fas fa-file-excel"></i></div><div><strong>Grand livre 2023</strong><small>Journal comptable complet</small></div></div></td>
+                <td><span class="cat-badge cat-compta">Comptabilité</span></td>
+                <td>20/03/2024</td><td>2023</td><td>1.1 MB</td>
+                <td><span class="status-pill sp-ok">Certifié</span></td>
+                <td class="doc-actions">
+                  <button class="btn-icon" title="Télécharger" onclick="showToast('Téléchargement : Grand livre 2023')"><i class="fas fa-download"></i></button>
+                  <button class="btn-icon" title="Aperçu" onclick="showPreview('Grand livre 2023')"><i class="fas fa-eye"></i></button>
+                </td>
+              </tr>
+              <tr data-cat="comptabilite">
+                <td><div class="doc-name"><div class="doc-icon di-pdf"><i class="fas fa-file-pdf"></i></div><div><strong>Compte de résultat 2023</strong><small>Résultats annuels</small></div></div></td>
+                <td><span class="cat-badge cat-compta">Comptabilité</span></td>
+                <td>28/03/2024</td><td>2023</td><td>890 KB</td>
+                <td><span class="status-pill sp-ok">Certifié</span></td>
+                <td class="doc-actions">
+                  <button class="btn-icon" title="Télécharger" onclick="showToast('Téléchargement en cours…')"><i class="fas fa-download"></i></button>
+                  <button class="btn-icon" title="Aperçu" onclick="showPreview('Compte de résultat 2023')"><i class="fas fa-eye"></i></button>
+                </td>
+              </tr>
+              <tr data-cat="comptabilite">
+                <td><div class="doc-name"><div class="doc-icon di-xls"><i class="fas fa-file-excel"></i></div><div><strong>Balance générale 2023</strong><small>Soldes de tous les comptes</small></div></div></td>
+                <td><span class="cat-badge cat-compta">Comptabilité</span></td>
+                <td>25/03/2024</td><td>2023</td><td>450 KB</td>
+                <td><span class="status-pill sp-ok">Finalisé</span></td>
+                <td class="doc-actions">
+                  <button class="btn-icon" title="Télécharger" onclick="showToast('Téléchargement en cours…')"><i class="fas fa-download"></i></button>
+                  <button class="btn-icon" title="Aperçu" onclick="showPreview('Balance générale 2023')"><i class="fas fa-eye"></i></button>
+                </td>
+              </tr>
+              <tr data-cat="fiscal">
+                <td><div class="doc-name"><div class="doc-icon di-xls"><i class="fas fa-file-excel"></i></div><div><strong>Déclaration TVA – T4 2023</strong><small>Déclaration trimestrielle</small></div></div></td>
+                <td><span class="cat-badge cat-fiscal">Fiscalité</span></td>
+                <td>15/01/2024</td><td>2023</td><td>320 KB</td>
+                <td><span class="status-pill sp-ok">Déposée</span></td>
+                <td class="doc-actions">
+                  <button class="btn-icon" title="Télécharger" onclick="showToast('Téléchargement en cours…')"><i class="fas fa-download"></i></button>
+                  <button class="btn-icon" title="Aperçu" onclick="showPreview('Déclaration TVA T4 2023')"><i class="fas fa-eye"></i></button>
+                </td>
+              </tr>
+              <tr data-cat="fiscal">
+                <td><div class="doc-name"><div class="doc-icon di-word"><i class="fas fa-file-word"></i></div><div><strong>Note fiscale – IS 2023</strong><small>Analyse impôt sur les sociétés</small></div></div></td>
+                <td><span class="cat-badge cat-fiscal">Fiscalité</span></td>
+                <td>05/04/2024</td><td>2023</td><td>280 KB</td>
+                <td><span class="status-pill sp-pend">En attente</span></td>
+                <td class="doc-actions">
+                  <button class="btn-icon" title="Télécharger" onclick="showToast('Téléchargement en cours…')"><i class="fas fa-download"></i></button>
+                  <button class="btn-icon" title="Aperçu" onclick="showPreview('Note fiscale IS 2023')"><i class="fas fa-eye"></i></button>
+                </td>
+              </tr>
+              <tr data-cat="fiscal">
+                <td><div class="doc-name"><div class="doc-icon di-pdf"><i class="fas fa-file-pdf"></i></div><div><strong>Déclaration TVA – T3 2023</strong><small>Déclaration trimestrielle</small></div></div></td>
+                <td><span class="cat-badge cat-fiscal">Fiscalité</span></td>
+                <td>15/10/2023</td><td>2023</td><td>310 KB</td>
+                <td><span class="status-pill sp-ok">Déposée</span></td>
+                <td class="doc-actions">
+                  <button class="btn-icon" title="Télécharger" onclick="showToast('Téléchargement en cours…')"><i class="fas fa-download"></i></button>
+                  <button class="btn-icon" title="Aperçu" onclick="showPreview('Déclaration TVA T3 2023')"><i class="fas fa-eye"></i></button>
+                </td>
+              </tr>
+              <tr data-cat="fiscal">
+                <td><div class="doc-name"><div class="doc-icon di-pdf"><i class="fas fa-file-pdf"></i></div><div><strong>Liasse fiscale 2022</strong><small>Déclarations annuelles DGI</small></div></div></td>
+                <td><span class="cat-badge cat-fiscal">Fiscalité</span></td>
+                <td>30/06/2023</td><td>2022</td><td>1.8 MB</td>
+                <td><span class="status-pill sp-ok">Certifié</span></td>
+                <td class="doc-actions">
+                  <button class="btn-icon" title="Télécharger" onclick="showToast('Téléchargement en cours…')"><i class="fas fa-download"></i></button>
+                  <button class="btn-icon" title="Aperçu" onclick="showPreview('Liasse fiscale 2022')"><i class="fas fa-eye"></i></button>
+                </td>
+              </tr>
+              <tr data-cat="fiscal">
+                <td><div class="doc-name"><div class="doc-icon di-xls"><i class="fas fa-file-excel"></i></div><div><strong>Déclaration TVA – T1 2024</strong><small>Déclaration en cours</small></div></div></td>
+                <td><span class="cat-badge cat-fiscal">Fiscalité</span></td>
+                <td>05/04/2024</td><td>2024</td><td>—</td>
+                <td><span class="status-pill sp-new">En cours</span></td>
+                <td class="doc-actions">
+                  <button class="btn-icon" title="Aperçu" onclick="showPreview('Déclaration TVA T1 2024')"><i class="fas fa-eye"></i></button>
+                </td>
+              </tr>
+              <tr data-cat="audit">
+                <td><div class="doc-name"><div class="doc-icon di-pdf"><i class="fas fa-file-pdf"></i></div><div><strong>Rapport d'audit interne</strong><small>Mission de contrôle 2023</small></div></div></td>
+                <td><span class="cat-badge cat-audit">Audit</span></td>
+                <td>10/03/2024</td><td>2023</td><td>3.2 MB</td>
+                <td><span class="status-pill sp-new">Nouveau</span></td>
+                <td class="doc-actions">
+                  <button class="btn-icon" title="Télécharger" onclick="showToast('Téléchargement en cours…')"><i class="fas fa-download"></i></button>
+                  <button class="btn-icon" title="Aperçu" onclick="showPreview('Rapport audit interne 2023')"><i class="fas fa-eye"></i></button>
+                </td>
+              </tr>
+              <tr data-cat="audit">
+                <td><div class="doc-name"><div class="doc-icon di-word"><i class="fas fa-file-word"></i></div><div><strong>Recommandations audit 2023</strong><small>Plan d'action correctif</small></div></div></td>
+                <td><span class="cat-badge cat-audit">Audit</span></td>
+                <td>12/03/2024</td><td>2023</td><td>420 KB</td>
+                <td><span class="status-pill sp-new">Nouveau</span></td>
+                <td class="doc-actions">
+                  <button class="btn-icon" title="Télécharger" onclick="showToast('Téléchargement en cours…')"><i class="fas fa-download"></i></button>
+                  <button class="btn-icon" title="Aperçu" onclick="showPreview('Recommandations audit 2023')"><i class="fas fa-eye"></i></button>
+                </td>
+              </tr>
+              <tr data-cat="autre">
+                <td><div class="doc-name"><div class="doc-icon di-pdf"><i class="fas fa-file-pdf"></i></div><div><strong>Contrat de mission 2024</strong><small>Convention de services</small></div></div></td>
+                <td><span class="cat-badge cat-autre">Autre</span></td>
+                <td>02/01/2024</td><td>2024</td><td>180 KB</td>
+                <td><span class="status-pill sp-ok">Signé</span></td>
+                <td class="doc-actions">
+                  <button class="btn-icon" title="Télécharger" onclick="showToast('Téléchargement en cours…')"><i class="fas fa-download"></i></button>
+                  <button class="btn-icon" title="Aperçu" onclick="showPreview('Contrat de mission 2024')"><i class="fas fa-eye"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div><!-- /view-documents -->
+
+    <!-- VIEW: Échéances -->
+    <div class="dash-body view" id="view-calendar">
+      <div class="view-header">
+        <div>
+          <h2 class="view-title"><i class="fas fa-calendar-alt"></i> Échéances fiscales</h2>
+          <p class="view-subtitle">Calendrier des obligations fiscales et déclaratives</p>
+        </div>
+      </div>
+
+      <div class="calendar-legend">
+        <span class="leg-item leg-u"><i class="fas fa-circle"></i> Urgent (≤ 7 jours)</span>
+        <span class="leg-item leg-w"><i class="fas fa-circle"></i> Proche (≤ 30 jours)</span>
+        <span class="leg-item leg-n"><i class="fas fa-circle"></i> Normal</span>
+        <span class="leg-item leg-d"><i class="fas fa-circle"></i> Effectué</span>
+      </div>
+
+      <div class="calendar-grid">
+        <!-- Avril 2024 -->
+        <div class="cal-month-card">
+          <div class="cal-month-head"><i class="fas fa-calendar"></i> Avril 2024</div>
+          <div class="cal-events">
+            <div class="cal-event ce-urgent">
+              <div class="ce-date"><strong>15</strong> Avr</div>
+              <div class="ce-body">
+                <strong>Déclaration TVA T1 2024</strong>
+                <span>Direction Générale des Impôts</span>
+                <div class="ce-tags"><span class="ce-tag">TVA</span><span class="ce-tag ce-urgent-tag">Urgent</span></div>
+              </div>
+              <button class="ce-btn" onclick="showToast('Déclaration en cours de préparation par ABE Consulting')"><i class="fas fa-info-circle"></i></button>
+            </div>
+            <div class="cal-event ce-warn">
+              <div class="ce-date"><strong>30</strong> Avr</div>
+              <div class="ce-body">
+                <strong>Paiement IS – Acompte provisionnel</strong>
+                <span>Impôt sur les sociétés</span>
+                <div class="ce-tags"><span class="ce-tag">IS</span></div>
+              </div>
+              <button class="ce-btn" onclick="showToast('Montant calculé par ABE Consulting')"><i class="fas fa-info-circle"></i></button>
+            </div>
           </div>
         </div>
 
+        <!-- Mai 2024 -->
+        <div class="cal-month-card">
+          <div class="cal-month-head"><i class="fas fa-calendar"></i> Mai 2024</div>
+          <div class="cal-events">
+            <div class="cal-event ce-normal">
+              <div class="ce-date"><strong>15</strong> Mai</div>
+              <div class="ce-body">
+                <strong>DIPE mensuelle – Avril 2024</strong>
+                <span>Déclaration préalable emploi</span>
+                <div class="ce-tags"><span class="ce-tag">RH</span></div>
+              </div>
+              <button class="ce-btn" onclick="showToast('Prise en charge par ABE Consulting')"><i class="fas fa-info-circle"></i></button>
+            </div>
+            <div class="cal-event ce-normal">
+              <div class="ce-date"><strong>15</strong> Mai</div>
+              <div class="ce-body">
+                <strong>Déclaration DSF T1 2024</strong>
+                <span>Données statistiques et financières</span>
+                <div class="ce-tags"><span class="ce-tag">INS</span></div>
+              </div>
+              <button class="ce-btn" onclick="showToast('À préparer avec votre conseiller')"><i class="fas fa-info-circle"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Juin 2024 -->
+        <div class="cal-month-card">
+          <div class="cal-month-head"><i class="fas fa-calendar"></i> Juin 2024</div>
+          <div class="cal-events">
+            <div class="cal-event ce-normal">
+              <div class="ce-date"><strong>15</strong> Jun</div>
+              <div class="ce-body">
+                <strong>Déclaration TVA T2 2024</strong>
+                <span>Direction Générale des Impôts</span>
+                <div class="ce-tags"><span class="ce-tag">TVA</span></div>
+              </div>
+              <button class="ce-btn" onclick="showToast('À venir – ABE Consulting vous préviendra')"><i class="fas fa-info-circle"></i></button>
+            </div>
+            <div class="cal-event ce-normal">
+              <div class="ce-date"><strong>30</strong> Jun</div>
+              <div class="ce-body">
+                <strong>Liasse fiscale 2023</strong>
+                <span>Dépôt bilan Direction des Impôts</span>
+                <div class="ce-tags"><span class="ce-tag">IS</span><span class="ce-tag">TVA</span></div>
+              </div>
+              <button class="ce-btn" onclick="showToast('En cours de préparation')"><i class="fas fa-info-circle"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Effectuées -->
+        <div class="cal-month-card">
+          <div class="cal-month-head done-head"><i class="fas fa-check-circle"></i> Effectuées</div>
+          <div class="cal-events">
+            <div class="cal-event ce-done">
+              <div class="ce-date"><strong>15</strong> Jan</div>
+              <div class="ce-body"><strong>Déclaration TVA T4 2023</strong><span>Déposée avec succès</span></div>
+              <i class="fas fa-check-circle" style="color:#16a34a;font-size:1rem;flex-shrink:0"></i>
+            </div>
+            <div class="cal-event ce-done">
+              <div class="ce-date"><strong>15</strong> Oct</div>
+              <div class="ce-body"><strong>Déclaration TVA T3 2023</strong><span>Déposée avec succès</span></div>
+              <i class="fas fa-check-circle" style="color:#16a34a;font-size:1rem;flex-shrink:0"></i>
+            </div>
+            <div class="cal-event ce-done">
+              <div class="ce-date"><strong>30</strong> Jun</div>
+              <div class="ce-body"><strong>Liasse fiscale 2022</strong><span>Déposée et certifiée</span></div>
+              <i class="fas fa-check-circle" style="color:#16a34a;font-size:1rem;flex-shrink:0"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /view-calendar -->
+
+    <!-- VIEW: Messages -->
+    <div class="dash-body view" id="view-messages">
+      <div class="view-header">
+        <div>
+          <h2 class="view-title"><i class="fas fa-comments"></i> Messagerie</h2>
+          <p class="view-subtitle">Communiquez directement avec votre conseiller ABE</p>
+        </div>
       </div>
 
-    </div><!-- /dash-body -->
-  </div><!-- /dash-main -->
+      <div class="msg-layout">
+        <!-- Conversations list -->
+        <div class="msg-sidebar">
+          <div class="msg-search">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Rechercher…" />
+          </div>
+          <div class="msg-convs" id="msgConvs">
+            <div class="msg-conv active" onclick="openConv(0)">
+              <div class="conv-avatar ca-g">CT</div>
+              <div class="conv-info">
+                <div class="conv-header"><strong>Charly TEMGOUA</strong><span class="conv-time">Hier</span></div>
+                <p class="conv-preview">Votre bilan 2023 est prêt...</p>
+              </div>
+              <span class="conv-badge">1</span>
+            </div>
+            <div class="msg-conv" onclick="openConv(1)">
+              <div class="conv-avatar ca-o"><i class="fas fa-bell"></i></div>
+              <div class="conv-info">
+                <div class="conv-header"><strong>Notifications ABE</strong><span class="conv-time">2j</span></div>
+                <p class="conv-preview">Votre TVA T1 est due le 15 avril...</p>
+              </div>
+              <span class="conv-badge">1</span>
+            </div>
+            <div class="msg-conv" onclick="openConv(2)">
+              <div class="conv-avatar ca-b"><i class="fas fa-headset"></i></div>
+              <div class="conv-info">
+                <div class="conv-header"><strong>Support ABE</strong><span class="conv-time">5j</span></div>
+                <p class="conv-preview">Votre mission d'audit est clôturée...</p>
+              </div>
+            </div>
+          </div>
+        </div>
 
+        <!-- Chat window -->
+        <div class="msg-chat">
+          <div class="chat-header" id="chatHeader">
+            <div class="conv-avatar ca-g">CT</div>
+            <div>
+              <strong>Charly TEMGOUA</strong>
+              <span class="chat-role">Conseiller ABE Consulting</span>
+            </div>
+            <button class="btn btn-o btn-xs ml-auto" onclick="showToast('Appel initié : +237 670 365 978')"><i class="fas fa-phone"></i> Appeler</button>
+          </div>
+          <div class="chat-messages" id="chatMessages">
+            <div class="chat-date-sep">Hier</div>
+            <div class="chat-msg msg-in">
+              <div class="msg-bubble"><p>Bonjour, votre <strong>Bilan 2023</strong> est maintenant disponible dans l'espace documents. Il a été certifié et est prêt pour vos partenaires financiers.</p><span class="msg-ts">14:32</span></div>
+            </div>
+            <div class="chat-msg msg-in">
+              <div class="msg-bubble"><p>Également, la <strong>Déclaration TVA T1 2024</strong> est en cours de préparation. Vous recevrez une notification dès qu'elle sera prête pour signature.</p><span class="msg-ts">14:35</span></div>
+            </div>
+            <div class="chat-date-sep">Aujourd'hui</div>
+            <div class="chat-msg msg-out">
+              <div class="msg-bubble"><p>Merci pour la mise à disposition du bilan. Est-ce que le rapport d'audit est également disponible ?</p><span class="msg-ts">09:15</span></div>
+            </div>
+            <div class="chat-msg msg-in">
+              <div class="msg-bubble"><p>Oui, le <strong>Rapport d'audit interne 2023</strong> a été ajouté ce matin. Il inclut nos recommandations pour l'exercice 2024. N'hésitez pas si vous avez des questions.</p><span class="msg-ts">10:02</span></div>
+            </div>
+          </div>
+          <div class="chat-compose">
+            <textarea id="chatInput" placeholder="Écrivez votre message…" rows="2" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChatMsg();}"></textarea>
+            <div class="chat-compose-actions">
+              <button class="btn-icon" title="Pièce jointe" onclick="showToast('Glisser-déposer bientôt disponible')"><i class="fas fa-paperclip"></i></button>
+              <button class="btn btn-g btn-sm" onclick="sendChatMsg()"><i class="fas fa-paper-plane"></i> Envoyer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /view-messages -->
+
+    <!-- VIEW: Rapports -->
+    <div class="dash-body view" id="view-reports">
+      <div class="view-header">
+        <div>
+          <h2 class="view-title"><i class="fas fa-chart-bar"></i> Rapports & Analyses</h2>
+          <p class="view-subtitle">Synthèse de votre situation comptable et financière</p>
+        </div>
+        <button class="btn btn-p btn-sm" onclick="showToast('Export PDF en cours…')"><i class="fas fa-file-pdf"></i> Exporter PDF</button>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-top"><div class="kpi-icon ki-g"><i class="fas fa-chart-line"></i></div><div class="kpi-trend up"><i class="fas fa-arrow-up"></i> +12%</div></div>
+          <div class="kpi-num">47.2M</div>
+          <div class="kpi-label">Chiffre d'affaires 2023 (FCFA)</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-top"><div class="kpi-icon ki-b"><i class="fas fa-balance-scale"></i></div><div class="kpi-trend up"><i class="fas fa-arrow-up"></i> +8%</div></div>
+          <div class="kpi-num">8.4M</div>
+          <div class="kpi-label">Résultat net 2023 (FCFA)</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-top"><div class="kpi-icon ki-o"><i class="fas fa-file-invoice-dollar"></i></div><div class="kpi-trend down"><i class="fas fa-arrow-down"></i> -3%</div></div>
+          <div class="kpi-num">5.1M</div>
+          <div class="kpi-label">Charges fiscales 2023 (FCFA)</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-top"><div class="kpi-icon ki-p"><i class="fas fa-percentage"></i></div><div class="kpi-trend up">Bon</div></div>
+          <div class="kpi-num">17.8%</div>
+          <div class="kpi-label">Taux de marge nette</div>
+        </div>
+      </div>
+
+      <div class="content-grid">
+        <div class="dash-card">
+          <div class="card-head"><h3><i class="fas fa-chart-bar" style="color:var(--c-green)"></i> Répartition des charges 2023</h3></div>
+          <div class="card-body" style="padding:24px">
+            <div class="chart-bars">
+              <div class="chart-bar-item"><span class="cb-label">Charges personnel</span><div class="cb-bar"><div class="cb-fill" style="width:45%;background:var(--c-green)"></div></div><span class="cb-val">45%</span></div>
+              <div class="chart-bar-item"><span class="cb-label">Achats & services</span><div class="cb-bar"><div class="cb-fill" style="width:28%;background:var(--c-orange)"></div></div><span class="cb-val">28%</span></div>
+              <div class="chart-bar-item"><span class="cb-label">Impôts & taxes</span><div class="cb-bar"><div class="cb-fill" style="width:14%;background:#2563eb"></div></div><span class="cb-val">14%</span></div>
+              <div class="chart-bar-item"><span class="cb-label">Amortissements</span><div class="cb-bar"><div class="cb-fill" style="width:8%;background:#7c3aed"></div></div><span class="cb-val">8%</span></div>
+              <div class="chart-bar-item"><span class="cb-label">Autres charges</span><div class="cb-bar"><div class="cb-fill" style="width:5%;background:var(--c-400)"></div></div><span class="cb-val">5%</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="dash-card">
+          <div class="card-head"><h3><i class="fas fa-calendar-check" style="color:var(--c-orange)"></i> Conformité fiscale 2023</h3></div>
+          <div class="card-body" style="padding:24px">
+            <div class="compliance-list">
+              <div class="comp-item comp-ok"><i class="fas fa-check-circle"></i><span>TVA T1 2023 – Déposée à temps</span></div>
+              <div class="comp-item comp-ok"><i class="fas fa-check-circle"></i><span>TVA T2 2023 – Déposée à temps</span></div>
+              <div class="comp-item comp-ok"><i class="fas fa-check-circle"></i><span>TVA T3 2023 – Déposée à temps</span></div>
+              <div class="comp-item comp-ok"><i class="fas fa-check-circle"></i><span>TVA T4 2023 – Déposée à temps</span></div>
+              <div class="comp-item comp-ok"><i class="fas fa-check-circle"></i><span>Liasse fiscale 2022 – Certifiée</span></div>
+              <div class="comp-item comp-pending"><i class="fas fa-clock"></i><span>Liasse fiscale 2023 – En cours (échéance 30/06)</span></div>
+            </div>
+            <div class="comp-score"><strong>Taux de conformité :</strong> <span class="score-badge">100%</span></div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /view-reports -->
+
+    <!-- VIEW: Notifications -->
+    <div class="dash-body view" id="view-notifications">
+      <div class="view-header">
+        <div>
+          <h2 class="view-title"><i class="fas fa-bell"></i> Notifications</h2>
+          <p class="view-subtitle">Alertes, rappels et mises à jour de vos dossiers</p>
+        </div>
+        <button class="btn btn-o btn-sm" onclick="markAllRead()"><i class="fas fa-check-double"></i> Tout marquer comme lu</button>
+      </div>
+
+      <div class="dash-card">
+        <div class="card-body" style="padding:8px">
+          <div class="notif-list" id="notifList">
+            <div class="notif-item notif-unread">
+              <div class="notif-icon ni-o"><i class="fas fa-exclamation-triangle"></i></div>
+              <div class="notif-body">
+                <strong>Échéance urgent – TVA T1 2024</strong>
+                <p>Votre déclaration TVA T1 2024 est due le 15 avril. ABE Consulting prépare vos documents.</p>
+                <span class="notif-time">Il y a 1 heure</span>
+              </div>
+              <div class="notif-unread-dot"></div>
+            </div>
+            <div class="notif-item notif-unread">
+              <div class="notif-icon ni-g"><i class="fas fa-file-check"></i></div>
+              <div class="notif-body">
+                <strong>Nouveau document disponible</strong>
+                <p>Le rapport d'audit interne 2023 a été ajouté à vos documents.</p>
+                <span class="notif-time">Il y a 2 heures</span>
+              </div>
+              <div class="notif-unread-dot"></div>
+            </div>
+            <div class="notif-item notif-unread">
+              <div class="notif-icon ni-g"><i class="fas fa-comments"></i></div>
+              <div class="notif-body">
+                <strong>Nouveau message de Charly TEMGOUA</strong>
+                <p>"Votre bilan 2023 est prêt. Merci de le consulter dans vos documents et de valider..."</p>
+                <span class="notif-time">Hier à 14:32</span>
+              </div>
+              <div class="notif-unread-dot"></div>
+            </div>
+            <div class="notif-item">
+              <div class="notif-icon ni-b"><i class="fas fa-tasks"></i></div>
+              <div class="notif-body">
+                <strong>Mission d'audit clôturée</strong>
+                <p>La mission de contrôle interne 2023 est terminée. Rapport disponible dans vos documents.</p>
+                <span class="notif-time">Il y a 1 semaine</span>
+              </div>
+            </div>
+            <div class="notif-item">
+              <div class="notif-icon ni-o"><i class="fas fa-calendar"></i></div>
+              <div class="notif-body">
+                <strong>Rappel – Paiement IS</strong>
+                <p>L'acompte provisionnel IS est dû le 30 avril 2024. Prévoir le règlement.</p>
+                <span class="notif-time">Il y a 2 semaines</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /view-notifications -->
+
+    <!-- VIEW: Profile -->
+    <div class="dash-body view" id="view-profile">
+      <div class="view-header">
+        <div>
+          <h2 class="view-title"><i class="fas fa-user-cog"></i> Mon profil</h2>
+          <p class="view-subtitle">Informations de votre compte client</p>
+        </div>
+      </div>
+
+      <div class="profile-grid">
+        <!-- Info card -->
+        <div class="dash-card profile-card">
+          <div class="card-head"><h3>Informations personnelles</h3><button class="btn btn-o btn-xs" onclick="showToast('Modification envoyée à ABE Consulting')"><i class="fas fa-edit"></i> Modifier</button></div>
+          <div class="card-body" style="padding:28px">
+            <div class="profile-avatar-wrap">
+              <div class="profile-avatar" id="profileAvatar">CT</div>
+              <button class="avatar-change-btn" onclick="showToast('Changement de photo bientôt disponible')"><i class="fas fa-camera"></i></button>
+            </div>
+            <div class="profile-fields">
+              <div class="pf-field">
+                <label>Nom complet</label>
+                <div class="pf-value" id="pfName">Charly TEMGOUA</div>
+              </div>
+              <div class="pf-field">
+                <label>Email</label>
+                <div class="pf-value" id="pfEmail">demo@abeconsulting.cm</div>
+              </div>
+              <div class="pf-field">
+                <label>Téléphone</label>
+                <div class="pf-value">+237 670 365 978</div>
+              </div>
+              <div class="pf-field">
+                <label>Entreprise</label>
+                <div class="pf-value" id="pfCompany">ABE Consulting SARL</div>
+              </div>
+              <div class="pf-field">
+                <label>Type de compte</label>
+                <div class="pf-value"><span class="status-pill sp-ok" id="pfRole">Client Premium</span></div>
+              </div>
+              <div class="pf-field">
+                <label>Membre depuis</label>
+                <div class="pf-value">Janvier 2024</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Security + Preferences -->
+        <div style="display:flex;flex-direction:column;gap:24px;">
+          <div class="dash-card">
+            <div class="card-head"><h3><i class="fas fa-shield-alt" style="color:var(--c-green)"></i> Sécurité</h3></div>
+            <div class="card-body" style="padding:24px">
+              <div class="sec-item">
+                <div><strong>Mot de passe</strong><p>Dernière modification : il y a 3 mois</p></div>
+                <button class="btn btn-o btn-sm" onclick="showToast('Un lien de réinitialisation a été envoyé à votre email')">Modifier</button>
+              </div>
+              <div class="sec-item">
+                <div><strong>Double authentification</strong><p>Non activée pour ce compte</p></div>
+                <button class="btn btn-g btn-sm" onclick="showToast('Activation 2FA bientôt disponible')">Activer</button>
+              </div>
+              <div class="sec-item">
+                <div><strong>Sessions actives</strong><p>1 session active (ce navigateur)</p></div>
+                <button class="btn btn-o btn-sm" onclick="logout()">Déconnecter tout</button>
+              </div>
+            </div>
+          </div>
+          <div class="dash-card">
+            <div class="card-head"><h3><i class="fas fa-bell" style="color:var(--c-orange)"></i> Préférences notifications</h3></div>
+            <div class="card-body" style="padding:24px">
+              <div class="pref-item">
+                <div><strong>Notifications email</strong><p>Alertes échéances et nouveaux documents</p></div>
+                <label class="toggle-switch"><input type="checkbox" checked /><span class="toggle-slider"></span></label>
+              </div>
+              <div class="pref-item">
+                <div><strong>Rappels SMS</strong><p>Rappels 48h avant chaque échéance</p></div>
+                <label class="toggle-switch"><input type="checkbox" /><span class="toggle-slider"></span></label>
+              </div>
+              <div class="pref-item">
+                <div><strong>Résumé hebdomadaire</strong><p>Rapport hebdomadaire de votre activité</p></div>
+                <label class="toggle-switch"><input type="checkbox" checked /><span class="toggle-slider"></span></label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /view-profile -->
+
+    <!-- VIEW: Support -->
+    <div class="dash-body view" id="view-support">
+      <div class="view-header">
+        <div>
+          <h2 class="view-title"><i class="fas fa-question-circle"></i> Aide & Support</h2>
+          <p class="view-subtitle">Besoin d'aide ? Nous sommes là pour vous.</p>
+        </div>
+      </div>
+      <div class="support-grid">
+        <div class="support-contact-card">
+          <div class="sc-icon"><i class="fas fa-user-tie"></i></div>
+          <h3>Votre conseiller dédié</h3>
+          <p class="sc-name">Charly TEMGOUA</p>
+          <p class="sc-role">Expert Comptable – ABE Consulting SARL</p>
+          <div class="sc-actions">
+            <a href="tel:+237670365978" class="btn btn-g btn-sm"><i class="fas fa-phone"></i> Appeler</a>
+            <button class="btn btn-o btn-sm" onclick="switchView('messages', document.querySelector('[data-view=messages]'))"><i class="fas fa-comments"></i> Messagerie</button>
+          </div>
+        </div>
+        <div class="support-contact-card">
+          <div class="sc-icon sc-icon-o"><i class="fas fa-envelope"></i></div>
+          <h3>Support par email</h3>
+          <p class="sc-name">abeconsultingsarl@yahoo.com</p>
+          <p class="sc-role">Réponse sous 24h ouvrées</p>
+          <div class="sc-actions">
+            <a href="mailto:abeconsultingsarl@yahoo.com" class="btn btn-p btn-sm"><i class="fas fa-envelope"></i> Envoyer un email</a>
+          </div>
+        </div>
+        <div class="support-contact-card">
+          <div class="sc-icon sc-icon-wa"><i class="fab fa-whatsapp"></i></div>
+          <h3>WhatsApp</h3>
+          <p class="sc-name">+237 670 365 978</p>
+          <p class="sc-role">Lun–Ven 8h–18h / Sam 9h–13h</p>
+          <div class="sc-actions">
+            <a href="https://wa.me/237670365978" target="_blank" class="btn btn-g btn-sm"><i class="fab fa-whatsapp"></i> Ouvrir WhatsApp</a>
+          </div>
+        </div>
+      </div>
+      <div class="dash-card" style="margin-top:24px">
+        <div class="card-head"><h3>FAQ rapide</h3></div>
+        <div class="card-body" style="padding:8px 16px 16px">
+          <div class="support-faq">
+            <details class="sfaq-item"><summary>Comment télécharger mes documents ?</summary><p>Rendez-vous dans la section <strong>Mes documents</strong>, puis cliquez sur l'icône de téléchargement (<i class="fas fa-download"></i>) en face du document souhaité.</p></details>
+            <details class="sfaq-item"><summary>Comment contacter mon conseiller ?</summary><p>Utilisez la <strong>Messagerie</strong> du tableau de bord, ou appelez directement au <strong>+237 670 365 978</strong>.</p></details>
+            <details class="sfaq-item"><summary>Que faire si une échéance approche ?</summary><p>Vérifiez la section <strong>Échéances fiscales</strong>. ABE Consulting prépare automatiquement vos déclarations. Vous recevrez une notification pour validation.</p></details>
+            <details class="sfaq-item"><summary>Comment modifier mon mot de passe ?</summary><p>Allez dans <strong>Mon profil</strong> → Sécurité → Modifier le mot de passe. Un lien de réinitialisation vous sera envoyé par email.</p></details>
+          </div>
+        </div>
+      </div>
+    </div><!-- /view-support -->
+
+  </div><!-- /dash-main -->
 </div><!-- /dash-layout -->
+
+<!-- Document preview modal -->
+<div class="modal-overlay" id="previewModal" onclick="closePreview()">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-head">
+      <div class="doc-icon di-pdf" style="width:40px;height:40px"><i class="fas fa-file-pdf"></i></div>
+      <h3 id="previewTitle">Bilan 2023</h3>
+      <button class="modal-close" onclick="closePreview()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="preview-placeholder">
+        <i class="fas fa-file-alt"></i>
+        <p>Aperçu du document</p>
+        <small>Le visualiseur de documents sera disponible prochainement.<br />Téléchargez le document pour le consulter.</small>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-o btn-sm" onclick="closePreview()">Fermer</button>
+      <button class="btn btn-p btn-sm" onclick="showToast('Téléchargement en cours…');closePreview()"><i class="fas fa-download"></i> Télécharger</button>
+    </div>
+  </div>
+</div>
 
 <!-- Toast -->
 <div class="toast" id="toast"><i class="fas fa-check-circle"></i> <span id="toastMsg"></span></div>
 
 <script src="js/auth.js"></script>
 <script>
-  // Load user data
-  document.addEventListener('DOMContentLoaded', () => {
-    const user = JSON.parse(localStorage.getItem('abe_user') || '{}');
-    const name = user.name || 'Client';
-    const initials = name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
-    const firstName = name.split(' ')[0];
+document.addEventListener('DOMContentLoaded', () => {
+  const user = JSON.parse(localStorage.getItem('abe_user') || '{}');
+  const name = user.name || 'Client';
+  const email = user.email || '';
+  const role = user.role || 'Client';
+  const company = user.company || '';
+  const initials = name.split(' ').map(n => n[0]).join('').slice(0,2).toUpperCase();
+  const firstName = name.split(' ')[0];
 
-    document.getElementById('welcomeName').textContent = firstName;
-    document.getElementById('sidebarName').textContent = name;
-    document.getElementById('sidebarAvatar').textContent = initials;
-    document.getElementById('topbarName').textContent = firstName + ' T.';
-    document.getElementById('topbarAvatar').textContent = initials;
+  // Populate all user fields
+  document.getElementById('welcomeName').textContent = firstName;
+  document.getElementById('sidebarName').textContent = name;
+  document.getElementById('sidebarRole').textContent = role;
+  document.getElementById('sidebarAvatar').textContent = initials;
+  document.getElementById('topbarName').textContent = firstName;
+  document.getElementById('topbarAvatar').textContent = initials;
+  document.getElementById('udAvatar').textContent = initials;
+  document.getElementById('udName').textContent = name;
+  document.getElementById('udEmail').textContent = email;
+  document.getElementById('profileAvatar').textContent = initials;
+  document.getElementById('pfName').textContent = name;
+  document.getElementById('pfEmail').textContent = email;
+  document.getElementById('pfCompany').textContent = company || 'ABE Consulting SARL';
+  document.getElementById('pfRole').textContent = role;
 
-    // Date
-    const now = new Date();
-    const opts = { weekday:'long', year:'numeric', month:'long', day:'numeric' };
-    document.getElementById('welcomeDate').textContent =
-      'Aujourd\'hui, ' + now.toLocaleDateString('fr-FR', opts);
+  // Date
+  const now = new Date();
+  const opts = { weekday:'long', year:'numeric', month:'long', day:'numeric' };
+  document.getElementById('welcomeDate').textContent =
+    'Aujourd\'hui, ' + now.toLocaleDateString('fr-FR', opts);
+});
+
+/* ── View switching ── */
+function switchView(viewId, linkEl) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+  const view = document.getElementById('view-' + viewId);
+  if (view) view.classList.add('active');
+  if (linkEl) linkEl.classList.add('active');
+  closeSidebar();
+  window.scrollTo(0, 0);
+}
+
+/* ── Sidebar mobile ── */
+function openSidebar() {
+  document.getElementById('sidebar').classList.add('open');
+  document.getElementById('sidebarOverlay').classList.add('active');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('active');
+}
+
+/* ── User dropdown ── */
+function toggleUserMenu() {
+  const dd = document.getElementById('userDropdown');
+  dd.classList.toggle('open');
+  document.getElementById('topbarChevron').style.transform =
+    dd.classList.contains('open') ? 'rotate(180deg)' : '';
+}
+function closeUserMenu() {
+  document.getElementById('userDropdown').classList.remove('open');
+  document.getElementById('topbarChevron').style.transform = '';
+}
+document.addEventListener('click', e => {
+  if (!e.target.closest('#topbarUser') && !e.target.closest('#userDropdown')) closeUserMenu();
+});
+
+/* ── Toast ── */
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  t.className = 'toast' + (type === 'error' ? ' toast-error' : '');
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+/* ── Document filters ── */
+function filterDocs(cat, btn) {
+  document.querySelectorAll('.doc-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#docsTableBody tr').forEach(tr => {
+    tr.style.display = (cat === 'all' || tr.dataset.cat === cat) ? '' : 'none';
   });
+}
 
-  function showToast(msg) {
-    const t = document.getElementById('toast');
-    document.getElementById('toastMsg').textContent = msg;
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 3000);
+/* ── Search ── */
+function handleSearch(val) {
+  const q = val.toLowerCase();
+  if (!q) return;
+  showToast('Recherche : "' + val + '"');
+}
+
+/* ── Preview modal ── */
+function showPreview(title) {
+  document.getElementById('previewTitle').textContent = title;
+  document.getElementById('previewModal').classList.add('active');
+}
+function closePreview() {
+  document.getElementById('previewModal').classList.remove('active');
+}
+
+/* ── Messages ── */
+const convData = [
+  { name:'Charly TEMGOUA', role:'Conseiller ABE Consulting', avatar:'CT', cls:'ca-g' },
+  { name:'Notifications ABE', role:'Service automatique', avatar:'AB', cls:'ca-o' },
+  { name:'Support ABE', role:'Équipe support', avatar:'SP', cls:'ca-b' },
+];
+function openConv(idx) {
+  document.querySelectorAll('.msg-conv').forEach((c,i) => {
+    c.classList.toggle('active', i === idx);
+    c.querySelector('.conv-badge')?.remove();
+  });
+  const d = convData[idx];
+  document.getElementById('chatHeader').innerHTML =
+    `<div class="conv-avatar ${d.cls}">${d.avatar}</div>
+     <div><strong>${d.name}</strong><span class="chat-role">${d.role}</span></div>
+     <button class="btn btn-o btn-xs ml-auto" onclick="showToast('Appel : +237 670 365 978')"><i class="fas fa-phone"></i> Appeler</button>`;
+}
+function sendChatMsg() {
+  const inp = document.getElementById('chatInput');
+  const txt = inp.value.trim();
+  if (!txt) return;
+  const msgs = document.getElementById('chatMessages');
+  const el = document.createElement('div');
+  el.className = 'chat-msg msg-out';
+  el.innerHTML = `<div class="msg-bubble"><p>${txt}</p><span class="msg-ts">${new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}</span></div>`;
+  msgs.appendChild(el);
+  msgs.scrollTop = msgs.scrollHeight;
+  inp.value = '';
+  setTimeout(() => {
+    const rep = document.createElement('div');
+    rep.className = 'chat-msg msg-in';
+    rep.innerHTML = `<div class="msg-bubble"><p>Merci pour votre message. Votre conseiller vous répondra dans les plus brefs délais.</p><span class="msg-ts">${new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}</span></div>`;
+    msgs.appendChild(rep);
+    msgs.scrollTop = msgs.scrollHeight;
+  }, 1200);
+}
+function sendQuickMsg() {
+  const inp = document.getElementById('quickMsg');
+  if (!inp.value.trim()) return;
+  showToast('Message envoyé à votre conseiller !');
+  inp.value = '';
+}
+
+/* ── Notifications ── */
+function markAllRead() {
+  document.querySelectorAll('.notif-item').forEach(n => n.classList.remove('notif-unread'));
+  document.querySelectorAll('.notif-unread-dot').forEach(d => d.remove());
+  document.querySelector('.topbar-notif-dot').style.display = 'none';
+  document.querySelectorAll('.badge-notif').forEach(b => b.remove());
+  showToast('Toutes les notifications marquées comme lues');
+}
+
+function logout() {
+  if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
+    localStorage.removeItem('abe_token');
+    localStorage.removeItem('abe_user');
+    window.location.href = 'login.html';
   }
-  function logout() {
-    if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
-      localStorage.removeItem('abe_token');
-      localStorage.removeItem('abe_user');
-      window.location.href = 'login.html';
-    }
-  }
+}
 </script>
 </body>
 </html>
