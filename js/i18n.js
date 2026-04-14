@@ -177,6 +177,16 @@ const translations = {
   cert4_title: { fr: 'Capital Social',         en: 'Share Capital' },
   cert4_label: { fr: 'SARL de droit camerounais – Gérant : Charly TEMGOUA', en: 'LLC under Cameroonian law – Manager: Charly TEMGOUA' },
   legal_note:  { fr: "ABE Consulting SARL est une Société à Responsabilité Limitée de droit camerounais constituée conformément aux dispositions de l'Acte Uniforme OHADA. Siège social : Akwa, Douala — BP 15609 Douala, Cameroun. Gérant : <strong>Charly TEMGOUA</strong> (né le 13/05/1990 à Dschang).", en: "ABE Consulting SARL is a Limited Liability Company under Cameroonian law, incorporated in accordance with the OHADA Uniform Act. Registered office: Akwa, Douala — PO Box 15609 Douala, Cameroon. Manager: <strong>Charly TEMGOUA</strong> (born 13/05/1990 in Dschang)." },
+  cert_tag:    { fr: 'Conformité légale',              en: 'Legal compliance' },
+  cert_h2:     { fr: 'Un cabinet certifié &amp; conforme', en: 'A certified &amp; compliant firm' },
+  cert_lead:   { fr: "ABE Consulting SARL répond à toutes les exigences légales et réglementaires en vigueur au Cameroun.", en: "ABE Consulting SARL meets all legal and regulatory requirements in force in Cameroon." },
+  cert1_desc:  { fr: "Registre du Commerce et du Crédit Mobilier – Tribunal du Commerce de Douala-Bonanjo", en: "Trade and Personal Property Credit Register – Commercial Court of Douala-Bonanjo" },
+  cert2_desc:  { fr: "Numéro d'Identification Unique – Direction Générale des Impôts du Cameroun", en: "Unique Identification Number – Cameroon General Directorate of Taxes" },
+  cert3_val:   { fr: 'Valide – CDI Douala 2',          en: 'Valid – CDI Douala 2' },
+  cert3_desc:  { fr: "Attestation de conformité fiscale délivrée par le Centre des Impôts de Douala 2", en: "Tax compliance certificate issued by the Douala 2 Tax Centre" },
+  cert4_val:   { fr: 'SARL – Gérant : Charly TEMGOUA', en: 'LLC – Manager: Charly TEMGOUA' },
+  cert4_desc:  { fr: "Société à Responsabilité Limitée de droit camerounais, siège social à Akwa, Douala", en: "Limited Liability Company under Cameroonian law, registered office in Akwa, Douala" },
+  nav_legal:   { fr: 'Conformité légale',              en: 'Legal compliance' },
 
   /* ── CONTACT ─────────────────────────────────────────────────── */
   sec_contact_tag:   { fr: 'Parlons de votre projet', en: 'Let\'s discuss your project' },

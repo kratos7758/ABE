@@ -40,6 +40,11 @@
 
       <div class="panel-footer">
         <p>&copy; 2024 ABE Consulting SARL &nbsp;·&nbsp; <a href="index.html">Retour au site</a></p>
+        <button class="lang-toggle" onclick="toggleLang()" aria-label="Changer de langue" style="margin-top:12px;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);">
+          <span class="lang-fr active">FR</span>
+          <span class="lang-sep" style="color:rgba(255,255,255,.4)">|</span>
+          <span class="lang-en">EN</span>
+        </button>
       </div>
     </div>
   </div>
@@ -129,6 +134,7 @@
 
 </div>
 
+<script src="js/i18n.js"></script>
 <script src="js/auth.js"></script>
 <script>
   function togglePassword() {

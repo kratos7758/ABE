@@ -92,6 +92,11 @@
         <input type="text" placeholder="Rechercher un document, une mission…" id="searchInput" oninput="handleSearch(this.value)" />
       </div>
       <div class="topbar-right">
+        <button class="lang-toggle" onclick="toggleLang()" aria-label="Changer de langue" style="display:inline-flex;align-items:center;gap:0;background:var(--c-100);border:1.5px solid var(--c-200);border-radius:9999px;overflow:hidden;cursor:pointer;font-size:.72rem;font-weight:700;letter-spacing:.05em;padding:0;">
+          <span class="lang-fr active" style="padding:5px 9px;transition:.2s;">FR</span>
+          <span style="color:var(--c-400);padding:0 2px;">|</span>
+          <span class="lang-en" style="padding:5px 9px;transition:.2s;">EN</span>
+        </button>
         <button class="topbar-icon-btn" title="Notifications" onclick="switchView('notifications', document.querySelector('[data-view=notifications]'))" style="position:relative">
           <i class="fas fa-bell"></i>
           <span class="topbar-notif-dot"></span>
@@ -1126,5 +1131,6 @@ function logout() {
   }
 }
 </script>
+<script src="js/i18n.js"></script>
 </body>
 </html>

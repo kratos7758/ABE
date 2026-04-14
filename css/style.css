@@ -870,6 +870,38 @@ h1,h2,h3,h4 { font-family:var(--f-head); line-height:1.2; color:var(--c-900); }
 .faq-item.open .faq-body { max-height:200px; padding:4px 24px 20px; }
 
 /* ── 16. CTA Banner ────────────────────────────────────────────── */
+/* ── Certifications ── */
+.cert-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:var(--sp-lg);
+  margin-top:var(--sp-2xl);
+}
+.cert-card {
+  display:flex; gap:16px; align-items:flex-start;
+  background:var(--c-white);
+  border:1.5px solid var(--c-200);
+  border-radius:var(--r-lg);
+  padding:var(--sp-lg);
+  transition:var(--t);
+}
+.cert-card:hover {
+  border-color:var(--c-green);
+  box-shadow:0 8px 24px rgba(var(--c-green-rgb),.12);
+  transform:translateY(-3px);
+}
+.cert-icon {
+  width:48px; height:48px; flex-shrink:0;
+  background:var(--c-green-l);
+  border-radius:var(--r-md);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--c-green-d); font-size:1.2rem;
+}
+.cert-info { display:flex; flex-direction:column; gap:4px; }
+.cert-info strong { font-size:.82rem; font-weight:700; color:var(--c-700); text-transform:uppercase; letter-spacing:.05em; }
+.cert-info span { font-family:monospace; font-size:.92rem; color:var(--c-900); font-weight:600; }
+.cert-info p { font-size:.78rem; color:var(--c-500); line-height:1.5; margin-top:4px; }
+
 .cta-banner {
   padding:var(--sp-3xl) 0;
   background:linear-gradient(135deg, var(--c-900) 0%, #1a2a12 60%, #1a0d04 100%);
