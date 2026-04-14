@@ -146,7 +146,7 @@
           <p id="welcomeDate">Chargement…</p>
         </div>
         <div class="welcome-actions">
-          <button class="btn btn-o btn-sm" onclick="showToast('Export en cours de préparation…')">
+          <button class="btn btn-o btn-sm" onclick="window.print()">
             <i class="fas fa-download"></i> Exporter
           </button>
           <button class="btn btn-p btn-sm" onclick="switchView('messages', document.querySelector('[data-view=messages]'))">
@@ -334,8 +334,8 @@
           <p class="view-subtitle">Tous vos documents comptables, fiscaux et rapports</p>
         </div>
         <div class="welcome-actions">
-          <button class="btn btn-o btn-sm" onclick="showToast('Filtre appliqué')"><i class="fas fa-filter"></i> Filtrer</button>
-          <button class="btn btn-p btn-sm" onclick="showToast('Demande de document envoyée')"><i class="fas fa-plus"></i> Demander un document</button>
+          <button class="btn btn-o btn-sm" onclick="focusSearch()"><i class="fas fa-filter"></i> Filtrer</button>
+          <button class="btn btn-p btn-sm" onclick="openDocRequest()"><i class="fas fa-plus"></i> Demander un document</button>
         </div>
       </div>
 
@@ -683,7 +683,7 @@
           <h2 class="view-title"><i class="fas fa-chart-bar"></i> Rapports & Analyses</h2>
           <p class="view-subtitle">Synthèse de votre situation comptable et financière</p>
         </div>
-        <button class="btn btn-p btn-sm" onclick="showToast('Export PDF en cours…')"><i class="fas fa-file-pdf"></i> Exporter PDF</button>
+        <button class="btn btn-p btn-sm" onclick="window.print()"><i class="fas fa-file-pdf"></i> Exporter PDF</button>
       </div>
 
       <div class="kpi-grid">
@@ -812,7 +812,7 @@
       <div class="profile-grid">
         <!-- Info card -->
         <div class="dash-card profile-card">
-          <div class="card-head"><h3>Informations personnelles</h3><button class="btn btn-o btn-xs" onclick="showToast('Modification envoyée à ABE Consulting')"><i class="fas fa-edit"></i> Modifier</button></div>
+          <div class="card-head"><h3>Informations personnelles</h3><button class="btn btn-o btn-xs" id="profileEditBtn" onclick="toggleProfileEdit()"><i class="fas fa-edit"></i> Modifier</button></div>
           <div class="card-body" style="padding:28px">
             <div class="profile-avatar-wrap">
               <div class="profile-avatar" id="profileAvatar">CT</div>
@@ -829,7 +829,7 @@
               </div>
               <div class="pf-field">
                 <label>Téléphone</label>
-                <div class="pf-value">+237 670 365 978</div>
+                <div class="pf-value" id="pfPhone">+237 670 365 978</div>
               </div>
               <div class="pf-field">
                 <label>Entreprise</label>
@@ -941,6 +941,53 @@
   </div><!-- /dash-main -->
 </div><!-- /dash-layout -->
 
+<!-- Document request modal -->
+<div class="modal-overlay" id="docRequestModal" onclick="closeDocRequest()">
+  <div class="modal-box" onclick="event.stopPropagation()" style="max-width:480px">
+    <div class="modal-head">
+      <div class="doc-icon di-word" style="width:40px;height:40px"><i class="fas fa-file-medical-alt"></i></div>
+      <h3>Demander un document</h3>
+      <button class="modal-close" onclick="closeDocRequest()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body" style="padding:20px 24px;display:flex;flex-direction:column;gap:16px">
+      <div>
+        <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--c-500);margin-bottom:6px">Type de document *</label>
+        <select id="docReqType" style="width:100%;padding:10px 12px;border:1.5px solid var(--c-200);border-radius:8px;font-size:.9rem;background:var(--c-50);outline:none">
+          <option value="">Sélectionner…</option>
+          <option>Bilan comptable</option>
+          <option>Compte de résultat</option>
+          <option>Grand livre</option>
+          <option>Déclaration TVA</option>
+          <option>Liasse fiscale</option>
+          <option>Rapport d'audit</option>
+          <option>Note fiscale</option>
+          <option>Attestation fiscale</option>
+          <option>Autre</option>
+        </select>
+      </div>
+      <div>
+        <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--c-500);margin-bottom:6px">Exercice / Période</label>
+        <input type="text" id="docReqPeriod" placeholder="Ex : 2023, T1 2024, janvier 2024…" style="width:100%;padding:10px 12px;border:1.5px solid var(--c-200);border-radius:8px;font-size:.9rem;background:var(--c-50);outline:none" />
+      </div>
+      <div>
+        <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--c-500);margin-bottom:6px">Précisions (optionnel)</label>
+        <textarea id="docReqDesc" rows="3" placeholder="Décrivez votre besoin ou toute instruction particulière…" style="width:100%;padding:10px 12px;border:1.5px solid var(--c-200);border-radius:8px;font-size:.9rem;background:var(--c-50);outline:none;resize:vertical;font-family:inherit"></textarea>
+      </div>
+      <div>
+        <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--c-500);margin-bottom:8px">Urgence</label>
+        <div style="display:flex;gap:16px">
+          <label style="display:flex;align-items:center;gap:7px;cursor:pointer;font-size:.88rem;color:var(--c-700)"><input type="radio" name="docUrgency" value="normal" checked style="accent-color:var(--c-green)" /> Normal</label>
+          <label style="display:flex;align-items:center;gap:7px;cursor:pointer;font-size:.88rem;color:var(--c-orange)"><input type="radio" name="docUrgency" value="urgent" style="accent-color:var(--c-orange)" /> Urgent</label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-o btn-sm" onclick="closeDocRequest()">Annuler</button>
+      <button class="btn btn-p btn-sm" onclick="submitDocRequest()"><i class="fas fa-paper-plane"></i> Envoyer la demande</button>
+    </div>
+  </div>
+</div>
+
 <!-- Document preview modal -->
 <div class="modal-overlay" id="previewModal" onclick="closePreview()">
   <div class="modal-box" onclick="event.stopPropagation()">
@@ -968,39 +1015,101 @@
 
 <script src="js/auth.js"></script>
 <script>
+'use strict';
+
+/* ════════════════════════════════════════════════════════
+   CONVERSATION HISTORIES
+   ════════════════════════════════════════════════════════ */
+const conversations = [
+  {
+    name: 'Charly TEMGOUA', role: 'Conseiller ABE Consulting',
+    avatarHtml: 'CT', cls: 'ca-g',
+    messages: [
+      { type:'sep',  text:'Hier' },
+      { type:'in',   text:'Bonjour, votre <strong>Bilan 2023</strong> est maintenant disponible dans l\'espace documents. Il a été certifié et est prêt pour vos partenaires financiers.', time:'14:32' },
+      { type:'in',   text:'Également, la <strong>Déclaration TVA T1 2024</strong> est en cours de préparation. Vous recevrez une notification dès qu\'elle sera prête pour signature.', time:'14:35' },
+      { type:'sep',  text:'Aujourd\'hui' },
+      { type:'out',  text:'Merci pour la mise à disposition du bilan. Est-ce que le rapport d\'audit est également disponible ?', time:'09:15' },
+      { type:'in',   text:'Oui, le <strong>Rapport d\'audit interne 2023</strong> a été ajouté ce matin. Il inclut nos recommandations pour l\'exercice 2024. N\'hésitez pas si vous avez des questions.', time:'10:02' },
+    ]
+  },
+  {
+    name: 'Notifications ABE', role: 'Service automatique',
+    avatarHtml: '<i class="fas fa-bell"></i>', cls: 'ca-o',
+    messages: [
+      { type:'sep', text:'Il y a 1 semaine' },
+      { type:'in',  text:'✅ La <strong>mission d\'audit interne 2023</strong> est désormais clôturée. Le rapport final est disponible dans votre espace documents.', time:'10:30' },
+      { type:'in',  text:'📋 La <strong>Liasse fiscale 2022</strong> a été certifiée et archivée dans vos documents.', time:'10:31' },
+      { type:'sep', text:'Il y a 2 jours' },
+      { type:'in',  text:'⚠️ <strong>Rappel important :</strong> Votre déclaration TVA T1 2024 est due le <strong>15 avril 2024</strong>. ABE Consulting prépare vos documents.', time:'08:00' },
+      { type:'in',  text:'Vous recevrez une notification dès que les documents seront prêts pour votre validation et signature.', time:'08:01' },
+      { type:'sep', text:'Aujourd\'hui' },
+      { type:'in',  text:'📁 Nouveau document disponible : <strong>Rapport d\'audit interne 2023</strong> — disponible dans la section Mes documents.', time:'09:45' },
+    ]
+  },
+  {
+    name: 'Support ABE', role: 'Équipe support',
+    avatarHtml: '<i class="fas fa-headset"></i>', cls: 'ca-b',
+    messages: [
+      { type:'sep', text:'Il y a 5 jours' },
+      { type:'in',  text:'Bonjour et bienvenue dans votre espace client ABE Consulting ! 🎉 Votre compte est maintenant pleinement opérationnel.', time:'09:00' },
+      { type:'in',  text:'Vous pouvez accéder à vos documents, suivre vos échéances fiscales et communiquer directement avec votre conseiller via la messagerie.', time:'09:01' },
+      { type:'out', text:'Merci ! Comment puis-je télécharger tous mes documents en une seule fois ?', time:'11:15' },
+      { type:'in',  text:'Actuellement, les documents se téléchargent individuellement via l\'icône <i class="fas fa-download"></i> dans <strong>Mes documents</strong>. Un export groupé est en cours de développement — vous serez notifié dès sa disponibilité.', time:'14:22' },
+      { type:'out', text:'D\'accord, merci pour l\'info.', time:'14:45' },
+      { type:'in',  text:'Avec plaisir ! N\'hésitez pas à nous contacter pour toute question. Nous répondons sous 24h ouvrées. 😊', time:'14:50' },
+    ]
+  }
+];
+
+let activeConvIdx = 0;
+
+/* ════════════════════════════════════════════════════════
+   INIT – populate user info
+   ════════════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
-  const user = JSON.parse(localStorage.getItem('abe_user') || '{}');
-  const name = user.name || 'Client';
-  const email = user.email || '';
-  const role = user.role || 'Client';
-  const company = user.company || '';
-  const initials = name.split(' ').map(n => n[0]).join('').slice(0,2).toUpperCase();
-  const firstName = name.split(' ')[0];
+  populateUser();
 
-  // Populate all user fields
-  document.getElementById('welcomeName').textContent = firstName;
-  document.getElementById('sidebarName').textContent = name;
-  document.getElementById('sidebarRole').textContent = role;
-  document.getElementById('sidebarAvatar').textContent = initials;
-  document.getElementById('topbarName').textContent = firstName;
-  document.getElementById('topbarAvatar').textContent = initials;
-  document.getElementById('udAvatar').textContent = initials;
-  document.getElementById('udName').textContent = name;
-  document.getElementById('udEmail').textContent = email;
-  document.getElementById('profileAvatar').textContent = initials;
-  document.getElementById('pfName').textContent = name;
-  document.getElementById('pfEmail').textContent = email;
-  document.getElementById('pfCompany').textContent = company || 'ABE Consulting SARL';
-  document.getElementById('pfRole').textContent = role;
-
-  // Date
   const now = new Date();
   const opts = { weekday:'long', year:'numeric', month:'long', day:'numeric' };
   document.getElementById('welcomeDate').textContent =
     'Aujourd\'hui, ' + now.toLocaleDateString('fr-FR', opts);
+
+  // Render default conversation
+  renderConvMessages(0);
 });
 
-/* ── View switching ── */
+function populateUser() {
+  const user = JSON.parse(localStorage.getItem('abe_user') || '{}');
+  const name    = user.name    || 'Client';
+  const email   = user.email   || '';
+  const role    = user.role    || 'Client';
+  const company = user.company || 'ABE Consulting SARL';
+  const initials = name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
+  const firstName = name.split(' ')[0];
+
+  document.getElementById('welcomeName').textContent    = firstName;
+  document.getElementById('sidebarName').textContent    = name;
+  document.getElementById('sidebarRole').textContent    = role;
+  document.getElementById('sidebarAvatar').textContent  = initials;
+  document.getElementById('topbarName').textContent     = firstName;
+  document.getElementById('topbarAvatar').textContent   = initials;
+  document.getElementById('udAvatar').textContent       = initials;
+  document.getElementById('udName').textContent         = name;
+  document.getElementById('udEmail').textContent        = email;
+  document.getElementById('profileAvatar').textContent  = initials;
+  document.getElementById('pfName').textContent         = name;
+  document.getElementById('pfEmail').textContent        = email;
+  document.getElementById('pfCompany').textContent      = company;
+  document.getElementById('pfRole').textContent         = role;
+  if (document.getElementById('pfPhone')) {
+    document.getElementById('pfPhone').textContent = user.phone || '+237 670 365 978';
+  }
+}
+
+/* ════════════════════════════════════════════════════════
+   VIEW SWITCHING
+   ════════════════════════════════════════════════════════ */
 function switchView(viewId, linkEl) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
@@ -1011,7 +1120,9 @@ function switchView(viewId, linkEl) {
   window.scrollTo(0, 0);
 }
 
-/* ── Sidebar mobile ── */
+/* ════════════════════════════════════════════════════════
+   SIDEBAR MOBILE
+   ════════════════════════════════════════════════════════ */
 function openSidebar() {
   document.getElementById('sidebar').classList.add('open');
   document.getElementById('sidebarOverlay').classList.add('active');
@@ -1021,7 +1132,9 @@ function closeSidebar() {
   document.getElementById('sidebarOverlay').classList.remove('active');
 }
 
-/* ── User dropdown ── */
+/* ════════════════════════════════════════════════════════
+   USER DROPDOWN
+   ════════════════════════════════════════════════════════ */
 function toggleUserMenu() {
   const dd = document.getElementById('userDropdown');
   dd.classList.toggle('open');
@@ -1036,7 +1149,9 @@ document.addEventListener('click', e => {
   if (!e.target.closest('#topbarUser') && !e.target.closest('#userDropdown')) closeUserMenu();
 });
 
-/* ── Toast ── */
+/* ════════════════════════════════════════════════════════
+   TOAST
+   ════════════════════════════════════════════════════════ */
 function showToast(msg, type) {
   const t = document.getElementById('toast');
   document.getElementById('toastMsg').textContent = msg;
@@ -1046,23 +1161,53 @@ function showToast(msg, type) {
   t._timer = setTimeout(() => t.classList.remove('show'), 3500);
 }
 
-/* ── Document filters ── */
+/* ════════════════════════════════════════════════════════
+   SEARCH — real filtering across documents
+   ════════════════════════════════════════════════════════ */
+function handleSearch(val) {
+  const q = val.toLowerCase().trim();
+  if (!q) {
+    // Reset: show all rows, restore filter buttons
+    document.querySelectorAll('#docsTableBody tr').forEach(tr => tr.style.display = '');
+    return;
+  }
+  // Navigate to documents view
+  switchView('documents', document.querySelector('[data-view=documents]'));
+  // Reset category filter
+  document.querySelectorAll('.doc-filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.doc-filter-btn').classList.add('active'); // "Tous"
+  // Filter rows
+  let count = 0;
+  document.querySelectorAll('#docsTableBody tr').forEach(tr => {
+    const match = tr.textContent.toLowerCase().includes(q);
+    tr.style.display = match ? '' : 'none';
+    if (match) count++;
+  });
+  showToast(count ? count + ' résultat(s) pour "' + val + '"' : 'Aucun résultat pour "' + val + '"');
+}
+
+function focusSearch() {
+  const inp = document.getElementById('searchInput');
+  if (inp) { inp.focus(); inp.select(); }
+}
+
+/* ════════════════════════════════════════════════════════
+   DOCUMENT FILTERS
+   ════════════════════════════════════════════════════════ */
 function filterDocs(cat, btn) {
   document.querySelectorAll('.doc-filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   document.querySelectorAll('#docsTableBody tr').forEach(tr => {
     tr.style.display = (cat === 'all' || tr.dataset.cat === cat) ? '' : 'none';
   });
+  // Clear search input when using tab filters
+  const inp = document.getElementById('searchInput');
+  if (inp) inp.value = '';
 }
 
-/* ── Search ── */
-function handleSearch(val) {
-  const q = val.toLowerCase();
-  if (!q) return;
-  showToast('Recherche : "' + val + '"');
-}
-
-/* ── Preview modal ── */
+/* ════════════════════════════════════════════════════════
+   PREVIEW MODAL
+   ════════════════════════════════════════════════════════ */
 function showPreview(title) {
   document.getElementById('previewTitle').textContent = title;
   document.getElementById('previewModal').classList.add('active');
@@ -1071,58 +1216,195 @@ function closePreview() {
   document.getElementById('previewModal').classList.remove('active');
 }
 
-/* ── Messages ── */
-const convData = [
-  { name:'Charly TEMGOUA', role:'Conseiller ABE Consulting', avatar:'CT', cls:'ca-g' },
-  { name:'Notifications ABE', role:'Service automatique', avatar:'AB', cls:'ca-o' },
-  { name:'Support ABE', role:'Équipe support', avatar:'SP', cls:'ca-b' },
-];
-function openConv(idx) {
-  document.querySelectorAll('.msg-conv').forEach((c,i) => {
-    c.classList.toggle('active', i === idx);
-    c.querySelector('.conv-badge')?.remove();
-  });
-  const d = convData[idx];
-  document.getElementById('chatHeader').innerHTML =
-    `<div class="conv-avatar ${d.cls}">${d.avatar}</div>
-     <div><strong>${d.name}</strong><span class="chat-role">${d.role}</span></div>
-     <button class="btn btn-o btn-xs ml-auto" onclick="showToast('Appel : +237 670 365 978')"><i class="fas fa-phone"></i> Appeler</button>`;
+/* ════════════════════════════════════════════════════════
+   DOCUMENT REQUEST MODAL
+   ════════════════════════════════════════════════════════ */
+function openDocRequest() {
+  document.getElementById('docRequestModal').classList.add('active');
 }
+function closeDocRequest() {
+  document.getElementById('docRequestModal').classList.remove('active');
+}
+function submitDocRequest() {
+  const type   = document.getElementById('docReqType').value.trim();
+  const period = document.getElementById('docReqPeriod').value.trim();
+  if (!type) { showToast('Veuillez sélectionner un type de document.', 'error'); return; }
+  if (!period) { showToast('Veuillez indiquer la période.', 'error'); return; }
+  closeDocRequest();
+  // Reset form
+  document.getElementById('docReqType').value = '';
+  document.getElementById('docReqPeriod').value = '';
+  document.getElementById('docReqDesc').value = '';
+  showToast('Demande envoyée : ' + type + ' (' + period + '). Votre conseiller vous contactera sous 24h.');
+  // Add a pending row in the documents table
+  const urgency = document.querySelector('input[name=docUrgency]:checked')?.value || 'normal';
+  const tbody = document.getElementById('docsTableBody');
+  const tr = document.createElement('tr');
+  tr.dataset.cat = 'autre';
+  tr.innerHTML = `
+    <td><div class="doc-name"><div class="doc-icon di-word"><i class="fas fa-file-alt"></i></div>
+    <div><strong>${type}</strong><small>${period}</small></div></div></td>
+    <td><span class="cat-badge cat-autre">Demandé</span></td>
+    <td>${new Date().toLocaleDateString('fr-FR')}</td><td>${period}</td><td>—</td>
+    <td><span class="status-pill sp-pend">${urgency === 'urgent' ? 'Urgent' : 'En attente'}</span></td>
+    <td></td>`;
+  tbody.prepend(tr);
+}
+
+/* ════════════════════════════════════════════════════════
+   MESSAGING — conversation switching
+   ════════════════════════════════════════════════════════ */
+function renderConvMessages(idx) {
+  const conv = conversations[idx];
+  const msgs = document.getElementById('chatMessages');
+  msgs.innerHTML = conv.messages.map(m => {
+    if (m.type === 'sep') return `<div class="chat-date-sep">${m.text}</div>`;
+    return `<div class="chat-msg msg-${m.type}">
+      <div class="msg-bubble"><p>${m.text}</p><span class="msg-ts">${m.time}</span></div>
+    </div>`;
+  }).join('');
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function openConv(idx) {
+  activeConvIdx = idx;
+  document.querySelectorAll('.msg-conv').forEach((c, i) => {
+    c.classList.toggle('active', i === idx);
+    const badge = c.querySelector('.conv-badge');
+    if (badge) badge.remove();
+  });
+  const conv = conversations[idx];
+  document.getElementById('chatHeader').innerHTML =
+    `<div class="conv-avatar ${conv.cls}">${conv.avatarHtml}</div>
+     <div><strong>${conv.name}</strong><span class="chat-role">${conv.role}</span></div>
+     <button class="btn btn-o btn-xs ml-auto" onclick="showToast('Appel : +237 670 365 978')">
+       <i class="fas fa-phone"></i> Appeler
+     </button>`;
+  renderConvMessages(idx);
+}
+
 function sendChatMsg() {
   const inp = document.getElementById('chatInput');
   const txt = inp.value.trim();
   if (!txt) return;
   const msgs = document.getElementById('chatMessages');
+  const time = new Date().toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit' });
   const el = document.createElement('div');
   el.className = 'chat-msg msg-out';
-  el.innerHTML = `<div class="msg-bubble"><p>${txt}</p><span class="msg-ts">${new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}</span></div>`;
+  el.innerHTML = `<div class="msg-bubble"><p>${txt}</p><span class="msg-ts">${time}</span></div>`;
   msgs.appendChild(el);
   msgs.scrollTop = msgs.scrollHeight;
   inp.value = '';
+  // Store in conversations so it persists when switching back
+  conversations[activeConvIdx].messages.push({ type:'out', text: txt, time });
+  // Auto-reply after 1.2s
   setTimeout(() => {
-    const rep = document.createElement('div');
-    rep.className = 'chat-msg msg-in';
-    rep.innerHTML = `<div class="msg-bubble"><p>Merci pour votre message. Votre conseiller vous répondra dans les plus brefs délais.</p><span class="msg-ts">${new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}</span></div>`;
-    msgs.appendChild(rep);
+    const replies = [
+      'Merci pour votre message. Votre conseiller vous répondra dans les plus brefs délais.',
+      'Bien reçu ! Nous traitons votre demande.',
+      'Message pris en compte. Nous revenons vers vous très prochainement.',
+    ];
+    const rep = replies[Math.floor(Math.random() * replies.length)];
+    const repTime = new Date().toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit' });
+    const repEl = document.createElement('div');
+    repEl.className = 'chat-msg msg-in';
+    repEl.innerHTML = `<div class="msg-bubble"><p>${rep}</p><span class="msg-ts">${repTime}</span></div>`;
+    msgs.appendChild(repEl);
     msgs.scrollTop = msgs.scrollHeight;
+    conversations[activeConvIdx].messages.push({ type:'in', text: rep, time: repTime });
   }, 1200);
 }
+
 function sendQuickMsg() {
   const inp = document.getElementById('quickMsg');
-  if (!inp.value.trim()) return;
-  showToast('Message envoyé à votre conseiller !');
+  const txt = inp.value.trim();
+  if (!txt) return;
+  // Add the message to conversation 0 and switch to messages view
+  const time = new Date().toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit' });
+  conversations[0].messages.push({ type:'out', text: txt, time });
   inp.value = '';
+  showToast('Message envoyé à votre conseiller !');
+  // Offer to go to full messaging
+  setTimeout(() => switchView('messages', document.querySelector('[data-view=messages]')), 800);
 }
 
-/* ── Notifications ── */
+/* ════════════════════════════════════════════════════════
+   PROFILE EDITING
+   ════════════════════════════════════════════════════════ */
+let _profileEditing = false;
+const _editableFields = [
+  { id: 'pfName',    key: 'name',    placeholder: 'Votre nom complet' },
+  { id: 'pfPhone',   key: 'phone',   placeholder: '+237 6XX XXX XXX' },
+  { id: 'pfCompany', key: 'company', placeholder: 'Votre entreprise' },
+];
+
+function toggleProfileEdit() {
+  const btn = document.getElementById('profileEditBtn');
+  if (!_profileEditing) {
+    // Enter edit mode
+    _editableFields.forEach(f => {
+      const el = document.getElementById(f.id);
+      if (!el) return;
+      const val = el.textContent.trim();
+      el.innerHTML = `<input type="text" value="${val}" placeholder="${f.placeholder}"
+        style="width:100%;padding:8px 10px;border:1.5px solid var(--c-green);border-radius:7px;
+               font-size:.88rem;background:#fff;outline:none;font-family:inherit" />`;
+    });
+    btn.innerHTML = '<i class="fas fa-save"></i> Sauvegarder';
+    btn.style.background = 'var(--c-green)';
+    btn.style.color = '#fff';
+    btn.style.border = 'none';
+    _profileEditing = true;
+  } else {
+    // Save
+    const user = JSON.parse(localStorage.getItem('abe_user') || '{}');
+    _editableFields.forEach(f => {
+      const input = document.querySelector('#' + f.id + ' input');
+      if (!input) return;
+      const val = input.value.trim();
+      if (val) {
+        document.getElementById(f.id).textContent = val;
+        user[f.key] = val;
+      } else {
+        document.getElementById(f.id).textContent = input.placeholder;
+      }
+    });
+    localStorage.setItem('abe_user', JSON.stringify(user));
+    // Refresh all displays
+    const name = user.name || '';
+    if (name) {
+      const initials = name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
+      const firstName = name.split(' ')[0];
+      ['sidebarName','udName'].forEach(id => document.getElementById(id).textContent = name);
+      ['welcomeName','topbarName'].forEach(id => document.getElementById(id).textContent = firstName);
+      ['sidebarAvatar','topbarAvatar','udAvatar','profileAvatar'].forEach(id => {
+        document.getElementById(id).textContent = initials;
+      });
+    }
+    btn.innerHTML = '<i class="fas fa-edit"></i> Modifier';
+    btn.style.background = '';
+    btn.style.color = '';
+    btn.style.border = '';
+    _profileEditing = false;
+    showToast('Profil mis à jour avec succès ✓');
+  }
+}
+
+/* ════════════════════════════════════════════════════════
+   NOTIFICATIONS
+   ════════════════════════════════════════════════════════ */
 function markAllRead() {
   document.querySelectorAll('.notif-item').forEach(n => n.classList.remove('notif-unread'));
   document.querySelectorAll('.notif-unread-dot').forEach(d => d.remove());
-  document.querySelector('.topbar-notif-dot').style.display = 'none';
+  const dot = document.querySelector('.topbar-notif-dot');
+  if (dot) dot.style.display = 'none';
   document.querySelectorAll('.badge-notif').forEach(b => b.remove());
-  showToast('Toutes les notifications marquées comme lues');
+  showToast('Toutes les notifications marquées comme lues ✓');
 }
 
+/* ════════════════════════════════════════════════════════
+   LOGOUT
+   ════════════════════════════════════════════════════════ */
 function logout() {
   if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
     localStorage.removeItem('abe_token');

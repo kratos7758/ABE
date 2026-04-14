@@ -558,7 +558,8 @@ details summary::-webkit-details-marker{display:none}
 .avatar-change-btn:hover{background:var(--c-green-l);color:var(--c-green-d);border-color:var(--c-green)}
 .profile-fields{display:flex;flex-direction:column;gap:16px}
 .pf-field label{display:block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--c-500);margin-bottom:4px}
-.pf-value{font-size:.88rem;font-weight:500;color:var(--c-900);padding:10px 14px;background:var(--c-50);border-radius:8px;border:1px solid var(--c-200)}
+.pf-value{font-size:.88rem;font-weight:500;color:var(--c-900);padding:10px 14px;background:var(--c-50);border-radius:8px;border:1px solid var(--c-200);min-height:42px}
+.pf-value input:focus{box-shadow:0 0 0 3px rgba(109,197,52,.15)}
 .sec-item{
   display:flex;align-items:center;justify-content:space-between;
   padding:14px 0;border-bottom:1px solid var(--c-100);gap:16px;
